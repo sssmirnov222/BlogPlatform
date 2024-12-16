@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+
+  .header__blog {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+
+  .header__singIn,
+  .header__singUp {
+    font-size: 18px;
+    margin-right: 15px;
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-weight: 100;
+  }
+  .header__singUp {
+    color: #52c41a;
+    border: 2px solid #52c41a;
+  }
+}
