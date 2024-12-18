@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  justify-content: center;
+  .singIp {
+    h3 {
+      padding-top: 20px;
+    }
+    background: white;
+    width: 360px;
+    margin-top: 30px;
+    border-radius: 12px;
+    .singIp__input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .singIp__inputUsername,
+      .singIp__inputEmail,
+      .singIp__inputPassword,
+      .singIp__inputPassword_Repeat {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .singIp__inputUsername input,
+      .singIp__inputEmail input,
+      .singIp__inputPassword input,
+      .singIp__inputPassword_Repeat input {
+        height: 35px;
+        border-radius: 4px;
+        width: 300px;
+        border: 1px solid grey;
+      }
+
+      .singIp__inputUsername label,
+      .singIp__inputEmail label,
+      .singIp__inputPassword label,
+      .singIp__inputPassword_Repeat label {
+        text-align: left;
+        font-size: 14px;
+        padding-bottom: 5px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.processing {
+  display: flex;
+  justify-content: center;
+}
+.processing span {
+  font-size: 14px;
+  margin: 20px 10px;
+  text-align: left;
+  margin-left: 5px;
+}
+.processing input {
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.create {
+  color: white;
+  background: #1890ff;
+  width: 85%;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.already,
+.singIn {
+  font-size: 12px;
+}
+
+.createAcc {
+  margin-bottom: 40px;
+}
