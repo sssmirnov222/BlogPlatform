@@ -15,7 +15,7 @@ const ArticlList = (props) => {
     fetch(`https://blog-platform.kata.academy/api/articles/${slug}`)
       .then((data) => data.json())
       .then((data) => {
-        console.log('data', data);
+        // console.log('data', data);
         setPosts(data.article);
       });
   }, [slug]);

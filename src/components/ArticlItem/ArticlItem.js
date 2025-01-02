@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination } from '@mui/material';
 import Articl from '../Articles/Articl';
+import { fetchgetPosts } from '../../services/services';
 // import ArticlList from '../ArticlList/ArticlList';
 
 const ArticlItem = () => {
@@ -12,20 +13,18 @@ const ArticlItem = () => {
   const [pageQty, setPageQty] = useState(0);
 
   useEffect(() => {
-    fetch(`https://blog-platform.kata.academy/api/articles?offset=${page}&limit=${4}`)
-      .then((data) => data.json())
-      .then((data) => {
-        console.log('data', data);
-        setPosts(data.articles);
-        setPageQty(data.articles.length);
-      });
+    fetchgetPosts(page).then((res) => {
+      // console.log(res);
+      setPosts(res.articles);
+      setPageQty(res.articles.length);
+    });
   }, [page]);
 
   return (
     <>
       <div>
         <div className={articlItem.attik}>
-          {console.log(posts)}
+          {/* {console.log(posts)} */}
           {posts.map((articl) => {
             let tagList = articl.tagList.map((e) => e);
 

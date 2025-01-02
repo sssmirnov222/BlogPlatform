@@ -4,8 +4,8 @@ import { format } from 'date-fns';
 
 const Articl = (props) => {
   let data = format(props.createdAt, 'dd MMMM yyyy');
-  console.log(props.tagList);
-  console.log(props.tagList.length);
+  // console.log(props.tagList);
+  // console.log(props.tagList.length);
   return (
     <>
       <div className={articl.articl}>

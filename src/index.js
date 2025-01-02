@@ -1,7 +1,7 @@
 import React from 'react';
 import { configureStore, compose, applyMiddleware } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
-import rootReducer from './redux/rootReducer';
+import rootReducer from './redux//reducer/rootReducer';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
