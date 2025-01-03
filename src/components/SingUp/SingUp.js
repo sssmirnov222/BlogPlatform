@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import style from './SignUp.module.scss';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { singUp } from '../../redux/actions/actionUsers';
 import { useDispatch, useSelector } from 'react-redux';

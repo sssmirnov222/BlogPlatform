@@ -11,17 +11,22 @@ const Header = () => {
     return users.state.isAutorize;
   });
 
+  console.log(isAutorize);
+
   return (
     <>
       <header className={header.header}>
         <h2 className={header.header__blog}>Realworld Blog</h2>
 
-        {isAutorize ? (
+        {isAutorize && (
           <div>
             <button>Create Article</button>
-            <button onClick={dispatch(singOut)}>Log Out</button>
+            <button type="button" onClick={dispatch(singOut)}>
+              Log Out
+            </button>
           </div>
-        ) : (
+        )}
+        {!isAutorize && (
           <div>
             <Link to={`/sign-in`} className={header.header__singIn}>
               Sing In

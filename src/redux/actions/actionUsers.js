@@ -16,8 +16,9 @@ export const singUp = (value) => async (dispatch) => {
   }
 };
 
-export const singOut = (value) => async (dispatch) => {
+export const singOut = () => async (dispatch) => {
   try {
+    localStorage.removeItem('user');
     dispatch({
       type: SING_LOGOUT_USER,
     });
