@@ -11,7 +11,6 @@ const Header = () => {
     return users.state.isAutorize;
   });
 
-  console.log(isAutorize);
 
   return (
     <>
