@@ -11,7 +11,7 @@ const Header = () => {
 
     return users.isAutorize;
   });
-  console.log(isAutorize);
+
   return (
     <>
       <header className={header.header}>
