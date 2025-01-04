@@ -6,6 +6,7 @@ import ArticlItem from './components/ArticlItem/ArticlItem';
 import { ArticlList } from './components/ArticlList/ArticlList';
 import SingUp from './components/SingUp/SingUp';
 import SingIp from './components/SignIn/SignIn';
+import CreateArticl from './components/CreateArticl/CreateArticl';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<ArticlItem />} />
         <Route path="/sign-up" element={<SingUp />} />
         <Route path="/sign-in" element={<SingIp />} />
-
+        <Route path="/new-article" element={<CreateArticl />} />
         <Route path="/articles/:slug" element={<ArticlList />} />
       </Routes>
     </div>

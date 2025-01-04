@@ -29,7 +29,7 @@ const ArticlItem = () => {
             let tagList = articl.tagList.map((e) => e);
 
             return (
-              <div className={articlItem.articlList}>
+              <div className={articlItem.articlList}  key={articl.title}>
                 <Link to={`/articles/${articl.slug}`} className={articlItem.link}>
                   <Articl
                     body={articl.body}
@@ -38,6 +38,7 @@ const ArticlItem = () => {
                     image={articl.author.image}
                     tagList={tagList}
                     createdAt={articl.createdAt}
+       
                   />
                 </Link>
               </div>
@@ -52,6 +53,5 @@ const ArticlItem = () => {
     </>
   );
 };
-{
-}
+
 export default ArticlItem;

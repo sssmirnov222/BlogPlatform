@@ -16,7 +16,7 @@ export const fetchGetPostSlug = async (slug) => {
 
 export const createPost = async (value, token) => {
   let user = {
-    value,
+    user: value,
   };
   let url = await fetch(`${baseUrl}/articles`, {
     method: 'POST',
@@ -33,7 +33,7 @@ export const createPost = async (value, token) => {
 
 export const editPost = async (slug, value, token) => {
   let user = {
-    value,
+    user: value,
   };
   let url = await fetch(`${baseUrl}/articles/${slug}`, {
     method: 'PUT',

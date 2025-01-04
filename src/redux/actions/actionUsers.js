@@ -6,23 +6,38 @@ export const singUp = (value) => async (dispatch) => {
   console.log('response', response);
   try {
     if (response.user) {
-      dispatch({
+      return dispatch({
         type: SING_UP_USER,
         ...response.user,
       });
     }
-  } catch (e) {
-    console.log(e);
+    //если не response.user, то нужна логика для отображения ошибки
+    // например в стор добавить ошибку, которая null, если ошибка писать туда текст и выводить этот текст под тем input, который не верный
+    // это когда имя уже занято или email например
+  } catch (error) {
+    console.log('SingUp', error);
   }
 };
 
-export const singOut = () => async (dispatch) => {
+//async используется для асинхронных вызовов, тут он не нужен, ты просто стор меняешь
+export const singOut = (dispatch) => {
+  localStorage.removeItem('user');
+  return dispatch({
+    type: SING_LOGOUT_USER,
+  });
+};
+
+export const singIn = (value) => async (dispatch) => {
+  const response = await singInUser(value);
+  console.log(response);
   try {
-    localStorage.removeItem('user');
-    dispatch({
-      type: SING_LOGOUT_USER,
-    });
-  } catch (e) {
-    console.log(e);
+    if (response.user) {
+      return dispatch({
+        type: SING_IN_USER,
+        ...response.user,
+      });
+    }
+  } catch (error) {
+    console.log('SingIn', error);
   }
 };

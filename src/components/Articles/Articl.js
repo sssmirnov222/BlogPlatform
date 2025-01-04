@@ -17,7 +17,7 @@ const Articl = (props) => {
             <div>
               {props.tagList.map((e) => {
                 if (e === '') return '';
-                return <span className={articl.articl__header_infoTags}>{e}</span>;
+                return <span className={articl.articl__header_infoTags} key={props.title+Math.random()}>{e}</span>;
               })}
             </div>
           </div>

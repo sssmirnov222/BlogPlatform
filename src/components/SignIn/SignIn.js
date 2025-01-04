@@ -1,52 +1,89 @@
-import React from 'react';
-import singIp from './SignIn.module.scss';
-import { useState, useEffect } from 'react';
-import { singInUser } from '../../services/services';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import style from './SignIn.module.scss';
+// import { useState } from 'react';
+import { singIn } from '../../redux/actions/actionUsers';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 const SingIp = () => {
-  let name = JSON.parse(localStorage.getItem('user'));
-  console.log(name.username);
-  console.log(name.email);
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  useEffect(() => {
-    singInUser(email, password);
-  }, []);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.isAutorize;
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    mode: 'onBlur',
+  });
+
+  const password = useRef({});
+  password.current = watch('password', '');
+
+  function onSubmit(data) {
+    console.log(data);
+    dispatch(singIn(data));
+  }
+
+  if (isAutorize) {
+    return navigate('/');
+  }
+
+  ///Переделываем на hook form!!!! и используем туже самую логику с редиректом, хоть в консоле ошибка осталась, пока не понял как ее убрать, видимо не так редирект все равно делаем
   return (
-    <div className={singIp.container}>
-      <div className={singIp.singIp}>
+    <div className={style.container}>
+      <div className={style.singIp}>
         <h3>Sing In</h3>
-        <div className={singIp.singIp__input}>
-          <form className={singIp.singIp__inputUsername}>
+        <div className={style.singIp__input}>
+          <form className={style.singIp__inputUsername} onSubmit={handleSubmit(onSubmit)}>
             <label>
               <span>Email adress</span>
-              <input placeholder="Email adress" onChange={(e) => setEmail(e.target.value)} />
+              <input
+                type="email"
+                placeholder="Email adress"
+                {...register('email', {
+                  required: 'Please enter your email',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Please enter valid email',
+                  },
+                })}
+              />
             </label>
+            {errors?.email?.message && <p>{errors?.email?.message || 'Error'}</p>}
 
             <label>
               <span>Password</span>
-              <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              <input
+                type="password"
+                placeholder="Password"
+                {...register('password', {
+                  required: 'Please enter your password',
+                  minLength: { value: 6, message: 'at least 6 characters' },
+                  maxLength: { value: 40, message: 'at least 40 characters' },
+                })}
+              />
             </label>
-          </form>
-        </div>
+            {errors?.password?.message && <p>{errors?.password?.message || 'Error'}</p>}
 
-        {email === name.email ? (
-          <Link to={`/`}>
-            <button className={singIp.create} onClick={() => singInUser({ email, password })}>
+            <button type="submit" className={style.create}>
               Login
             </button>
-          </Link>
-        ) : (
-          <button className={singIp.create} onClick={() => singInUser({ email, password })}>
-            Login
-          </button>
-        )}
-
-        <div className={singIp.createAcc}>
-          <span className={singIp.already}>Don't have an account?</span>
-          <Link className={singIp.singIn} to={`/sign-up`}>
+          </form>
+        </div>
+        <div className={style.createAcc}>
+          <span className={style.already}>Don't have an account?</span>
+          <Link className={style.singIn} to={`/sign-up`}>
             Sing Up
           </Link>
         </div>

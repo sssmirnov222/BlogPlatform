@@ -16,23 +16,23 @@ const users = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isAutorize: true,
-        // ...payload,
+        ...payload,
       };
 
     case SING_IN_USER:
       return {
         ...state,
+        isAutorize: true,
       };
 
     case SING_LOGOUT_USER:
+      console.log('тут');
       return {
         isAutorize: false,
       };
 
     default:
-      return {
-        state,
-      };
+      return state;
   }
 };
 
