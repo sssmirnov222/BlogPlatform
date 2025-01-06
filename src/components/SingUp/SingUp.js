@@ -3,18 +3,17 @@ import style from './SignUp.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { singUp } from '../../redux/actions/actionUsers';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SingUp = () => {
   let navigate = useNavigate();
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users)
+    console.log(users);
     return users.isAutorize;
   });
 
-  
   const {
     register,
     handleSubmit,
@@ -31,12 +30,12 @@ const SingUp = () => {
     console.log(data);
     dispatch(singUp(data));
   }
-  
-  if (isAutorize) {
-   return navigate('/');
- }
 
- // Добавить отображение ошибок что бы глаза не ломались
+  if (isAutorize) {
+    return navigate('/');
+  }
+
+  // Добавить отображение ошибок что бы глаза не ломались
   return (
     <div className={style.container}>
       <div className={style.singUp}>

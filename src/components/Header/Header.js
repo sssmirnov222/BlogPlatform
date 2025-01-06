@@ -12,6 +12,12 @@ const Header = () => {
     return users.isAutorize;
   });
 
+  const username = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.username;
+  });
+
   return (
     <>
       <header className={header.header}>
@@ -20,11 +26,12 @@ const Header = () => {
         </NavLink>
         {/* соотвтетственно если есть залогинен, то нужно выводить имя и аватар*/}
         {isAutorize && (
-          <div>
-            <NavLink to={'/new-article'} end>
+          <div className={header.header__users}>
+            <NavLink to={'/new-article'} className={header.header__createArticl} end>
               Create Article
             </NavLink>
-            <button type="button" onClick={() => dispatch(singOut)}>
+            <span className={header.header__users_username}>{username}</span>
+            <button type="button" className={header.header__LogOut} onClick={() => dispatch(singOut)}>
               Log Out
             </button>
           </div>

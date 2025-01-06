@@ -15,10 +15,11 @@ export const fetchGetPostSlug = async (slug) => {
 };
 
 export const createPost = async (value, token) => {
+  console.log(value, token);
   let user = {
-    user: value,
+    article: value,
   };
-  let url = await fetch(`${baseUrl}/articles`, {
+  let url = await fetch(`https://blog-platform.kata.academy/api/articles`, {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {

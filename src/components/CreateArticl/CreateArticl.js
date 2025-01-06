@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './CreateArticl.module.scss';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { createArticl } from '../../redux/actions/actiosPosts';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CreateArticl = () => {
+  const [tag, setTag] = useState('');
+
+  const dispatch = useDispatch();
+
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -12,36 +18,92 @@ const CreateArticl = () => {
     mode: 'onBlur',
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'tags',
+  });
+
+  const addTag = () => {
+    append(tag);
+    setTag('');
+  };
+
+  const removeTag = (index) => () => {
+    remove(index);
+  };
+
+  const onChangeTag = (event) => {
+    setTag(event.target.value);
+  };
+
+  const token = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.token;
+  });
+
+  console.log(token);
+
+  function onSubmit(data) {
+    console.log(data, 'bbb', token);
+    dispatch(createArticl(data, token));
+  }
+
   return (
     <>
       <div>
         <h3>Create new article</h3>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             <span>Title</span>
-            <input placeholder="Title" />
+            <input
+              type="text"
+              placeholder="Title"
+              {...register('title', {
+                required: 'Title enter',
+              })}
+            />
           </label>
+          {errors?.title?.message && <p>{errors?.title?.message || 'Error'}</p>}
 
           <label>
             <span>Short description</span>
-            <input placeholder="Title" />
+            <input
+              type="text"
+              placeholder="Title"
+              {...register('description', {
+                required: 'Title enter',
+              })}
+            />
           </label>
+          {errors?.description?.message && <p>{errors?.description?.message || 'Error'}</p>}
 
           <label>
             <span>Text</span>
-            <input placeholder="Text" />
+            <input
+              placeholder="text"
+              {...register('body', {
+                required: 'Text enter',
+              })}
+            />
           </label>
+          {errors?.text?.message && <p>{errors?.text?.message || 'Error'}</p>}
 
-          <div>
-            <label>
-              <span></span>
-              <input />
-              <button>Delete</button>
-            </label>
-            <button>Add Tag</button>
-          </div>
+          <label>
+            <span></span>
+            <input
+              onChange={onChangeTag}
+              placeholder="Tag"
+              {...register('tagList', {
+                required: 'Tag enter',
+              })}
+            />
+            <button onClick={removeTag()}>Delete</button>
+          </label>
+          {errors?.tags?.message && <p>{errors?.tags?.message || 'Error'}</p>}
+          <button onClick={addTag}>Add Tag</button>
 
-          <button>Send</button>
+          <button type="submit">Send</button>
         </form>
       </div>
     </>

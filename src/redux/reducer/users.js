@@ -10,18 +10,23 @@ export const initialState = isUserData
     }
   : { isAutorize: false };
 
-const users = (state = initialState, { type, payload }) => {
+const users = (state = initialState, { type, payload, token, username }) => {
+  console.log(username);
   switch (type) {
     case SING_UP_USER:
       return {
         ...state,
         isAutorize: true,
+        token: token,
+        username: username,
         ...payload,
       };
 
     case SING_IN_USER:
       return {
         ...state,
+        token: token,
+        username: username,
         isAutorize: true,
       };
 

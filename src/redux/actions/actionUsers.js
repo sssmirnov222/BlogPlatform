@@ -8,6 +8,8 @@ export const singUp = (value) => async (dispatch) => {
     if (response.user) {
       return dispatch({
         type: SING_UP_USER,
+        token: response.user.token,
+        username: response.user.username,
         ...response.user,
       });
     }
