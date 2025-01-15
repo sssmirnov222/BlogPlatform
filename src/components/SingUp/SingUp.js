@@ -41,9 +41,9 @@ const SingUp = () => {
       <div className={style.singUp}>
         <h3>Create new account</h3>
         <div className={style.singUp__input}>
-          <form className={style.singUp__inputUsername} onSubmit={handleSubmit(onSubmit)}>
-            <label>
-              {/* <span>Username</span> */}
+          <form className={style.singUp__form} onSubmit={handleSubmit(onSubmit)}>
+            <label className={style.singUp__inputUsername}>
+              <span>Username</span>
               <input
                 type="text"
                 placeholder="Username"
@@ -54,10 +54,12 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.username?.message && <p>{errors?.username?.message || 'Error'}</p>}
+            {errors?.username?.message && (
+              <p className={style.userClassErrors}>{errors?.username?.message || 'Error'}</p>
+            )}
 
-            <label>
-              {/* <span>Email address</span> */}
+            <label className={style.singUp__inputEmail}>
+              <span>Email address</span>
               <input
                 type="email"
                 placeholder="Email adress"
@@ -70,10 +72,10 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.email?.message && <p>{errors?.email?.message || 'Error'}</p>}
+            {errors?.email?.message && <p className={style.userEmailErrors}>{errors?.email?.message || 'Error'}</p>}
 
-            <label>
-              {/* <span>Password</span> */}
+            <label className={style.singUp__inputPassword}>
+              <span>Password</span>
               <input
                 type="password"
                 placeholder="Password"
@@ -84,10 +86,12 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.password?.message && <p>{errors?.password?.message || 'Error'}</p>}
+            {errors?.password?.message && (
+              <p className={style.userPasswordErrors}>{errors?.password?.message || 'Error'}</p>
+            )}
 
-            <label>
-              {/* <span>Repeat Password</span> */}
+            <label className={style.singUp__inputPassword_Repeat}>
+              <span>Repeat Password</span>
               <input
                 type="password"
                 placeholder="Password"
@@ -99,7 +103,9 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.repeatPassword?.message && <p>{errors?.repeatPassword?.message || 'Error'}</p>}
+            {errors?.repeatPassword?.message && (
+              <p className={style.userRepeatPasswordErrors}>{errors?.repeatPassword?.message || 'Error'}</p>
+            )}
 
             <label className={style.processing}>
               <input

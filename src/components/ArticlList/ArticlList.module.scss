@@ -59,6 +59,36 @@
   width: 40px;
   border-radius: 50%;
 }
+.articl__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.delete {
+  background: white;
+  border: 2px solid #f5222d;
+  margin-left: 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  color: #f5222d;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 35px;
+}
+
+.edit {
+  background: white;
+  border: 2px solid #52c41a;
+  margin-left: 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  color: #52c41a;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 35px;
+}
 
 .articl__main_text {
   font-size: 12px;
@@ -72,4 +102,9 @@
   margin-left: 15px;
   padding-bottom: 20%;
   padding-right: 15px;
+}
+
+.favorite {
+  background: white;
+  border: none;
 }

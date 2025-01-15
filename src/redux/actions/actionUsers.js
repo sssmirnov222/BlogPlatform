@@ -1,4 +1,4 @@
-import { SING_IN_USER, SING_UP_USER, SING_LOGOUT_USER } from '../types';
+import { SING_IN_USER, SING_UP_USER, SING_LOGOUT_USER, EDIT_USER } from '../types';
 import { singInUser, singUpUser, editProfile } from '../../services/services';
 
 export const singUp = (value) => async (dispatch) => {
@@ -39,6 +39,19 @@ export const singIn = (value) => async (dispatch) => {
         ...response.user,
       });
     }
+  } catch (error) {
+    console.log('SingIn', error);
+  }
+};
+
+export const editUser = (value, token) => async (dispatch) => {
+  const response = await editProfile(value, token);
+  console.log(response);
+  try {
+    return dispatch({
+      type: EDIT_USER,
+      image: response.user.image,
+    });
   } catch (error) {
     console.log('SingIn', error);
   }

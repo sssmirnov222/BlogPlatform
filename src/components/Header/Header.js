@@ -18,6 +18,12 @@ const Header = () => {
     return users.username;
   });
 
+  const image = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.image;
+  });
+
   return (
     <>
       <header className={header.header}>
@@ -30,7 +36,18 @@ const Header = () => {
             <NavLink to={'/new-article'} className={header.header__createArticl} end>
               Create Article
             </NavLink>
-            <span className={header.header__users_username}>{username}</span>
+            <NavLink to={'/profile'} className={header.header__users_info}>
+              <span>{username}</span>
+              <img
+                className={header.header__users_infoImage}
+                src={
+                  image === undefined || null || image.slice(0, 4) !== 'http'
+                    ? 'https://static.productionready.io/images/smiley-cyrus.jpg'
+                    : image
+                }
+                alt="none"
+              />
+            </NavLink>
             <button type="button" className={header.header__LogOut} onClick={() => dispatch(singOut)}>
               Log Out
             </button>

@@ -1,7 +1,7 @@
 const baseUrl = 'https://blog-platform.kata.academy/api';
 
 export const fetchgetPosts = async (page) => {
-  let url = await fetch(`${baseUrl}/articles?offset=${page}&limit=${4}`);
+  let url = await fetch(`${baseUrl}/articles?limit=${4}&offset=${page}`);
   let res = await url.json();
   // console.log(res);
   return res;
@@ -28,13 +28,15 @@ export const createPost = async (value, token) => {
     },
   });
   let res = await url.json();
+  res.url = url.status;
   console.log(res);
+  console.log(url.status);
   return res;
 };
 
-export const editPost = async (slug, value, token) => {
+export const editPost = async (value, slug, token) => {
   let user = {
-    user: value,
+    article: value,
   };
   let url = await fetch(`${baseUrl}/articles/${slug}`, {
     method: 'PUT',
@@ -45,21 +47,30 @@ export const editPost = async (slug, value, token) => {
     },
   });
   let res = await url.json();
+  res.url = url.status;
   console.log(res);
+  console.log(url.status);
   return res;
 };
 
 export const deletePost = async (slug, token) => {
-  let url = await fetch(`${baseUrl}/articles/${slug}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Token ${token}`,
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
-  let res = await url.json();
-  console.log(res);
-  return res;
+  console.log(slug, token);
+  try {
+    let url = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    console.log(url.status);
+    let res = await url.json();
+    res.url = url.status;
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const likePost = async (slug, token) => {
@@ -72,7 +83,9 @@ export const likePost = async (slug, token) => {
     },
   });
   let res = await url.json();
+  res.url = url.status;
   console.log(res);
+  console.log(url.status);
   return res;
 };
 
@@ -85,7 +98,9 @@ export const dislikePost = async (slug, token) => {
     },
   });
   let res = await url.json();
+  res.url = url.status;
   console.log(res);
+  console.log(url.status);
   return res;
 };
 
@@ -132,20 +147,23 @@ export const singInUser = async (value) => {
   return res;
 };
 
-export const editProfile = async (value) => {
+export const editProfile = async (value, token) => {
   let user = {
-    value,
+    user: value,
   };
-
+  console.log(user);
   let url = await fetch(`${baseUrl}/user`, {
     method: 'PUT',
     body: JSON.stringify(user),
     headers: {
+      Authorization: `Token ${token}`,
       'Content-type': 'application/json; charset=UTF-8',
     },
   });
 
   let res = await url.json();
+  res.url = url.status;
+  console.log(url.status);
   console.log(res);
   return res;
 };

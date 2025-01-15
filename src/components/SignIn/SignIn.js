@@ -60,7 +60,7 @@ const SingIp = () => {
                 })}
               />
             </label>
-            {errors?.email?.message && <p>{errors?.email?.message || 'Error'}</p>}
+            {errors?.email?.message && <p className={style.userEmailErrors}>{errors?.email?.message || 'Error'}</p>}
 
             <label>
               <span>Password</span>
@@ -74,7 +74,9 @@ const SingIp = () => {
                 })}
               />
             </label>
-            {errors?.password?.message && <p>{errors?.password?.message || 'Error'}</p>}
+            {errors?.password?.message && (
+              <p className={style.userPasswordErrors}>{errors?.password?.message || 'Error'}</p>
+            )}
 
             <button type="submit" className={style.create}>
               Login
