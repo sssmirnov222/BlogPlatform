@@ -50,12 +50,13 @@ const posts = (state = initialState, { type, slug, url, title, body, description
       };
 
     case LIKE_ARTICL:
-      // console.log(state.post, slug);
+    
+
       return {
         ...state,
         url: url,
         openedPost: response,
-        post: state.post.map((post) => (post.slug === slug ? payload : post)),
+        post: state.post.map((post) => (post.slug === slug ? response : post)),
       };
 
     case DISLIKE_ARTICL:
@@ -64,7 +65,7 @@ const posts = (state = initialState, { type, slug, url, title, body, description
         url: url,
         openedPost: response,
         slug: slug,
-        post: state.post.map((post) => (post.slug === slug ? payload : post)),
+        post: state.post.map((post) => (post.slug === slug ? response : post)),
       };
 
     default:

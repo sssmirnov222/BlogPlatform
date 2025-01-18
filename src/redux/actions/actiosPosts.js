@@ -79,7 +79,7 @@ export const likeArticl = (slug, token) => async (dispatch) => {
   try {
     return dispatch({
       type: LIKE_ARTICL,
-      favorited: response.article.favorited,
+      response: response.article,
       slug: slug,
       url: response.url,
     });
@@ -94,6 +94,7 @@ export const disLikeArticl = (slug, token) => async (dispatch) => {
   try {
     return dispatch({
       type: DISLIKE_ARTICL,
+      response: response.article,
       slug: slug,
       url: response.url,
     });

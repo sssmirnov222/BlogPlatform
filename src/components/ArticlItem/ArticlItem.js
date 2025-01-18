@@ -6,26 +6,32 @@ import { Pagination } from '@mui/material';
 import Articl from '../Articles/Articl';
 import { fetchgetPosts } from '../../services/services';
 import { Spin } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { getArticles } from '../../redux/actions/actiosPosts';
 // import ArticlList from '../ArticlList/ArticlList';
 
 const ArticlItem = () => {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     fetchgetPosts(page).then((res) => {
       // console.log(res);
-      setPosts(res.articles);
+      // setPosts(res.articles);
       setPageQty(res.articlesCount);
       dispatch(getArticles(res.articles));
       setLoading(false);
     });
   }, [page]);
+
+  const posts = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    return posts.post;
+  });
 
   return (
     <>
@@ -37,6 +43,7 @@ const ArticlItem = () => {
           ) : (
             posts.map((articl, id) => {
               let tagList = articl.tagList.map((e) => e);
+              console.log(articl)
 
               return (
                 <div className={articlItem.articlList} key={id}>
@@ -49,6 +56,7 @@ const ArticlItem = () => {
                     image={articl.author.image}
                     tagList={tagList}
                     createdAt={articl.createdAt}
+                    favorited={articl.favorited}
                   />
                 </div>
               );

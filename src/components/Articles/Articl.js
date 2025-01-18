@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Articl = (props) => {
   let data = format(props.createdAt, 'dd MMMM yyyy');
   const dispatch = useDispatch();
-  const [liked, setLiked] = useState(false);
+  // const [liked, setLiked] = useState(false);
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
@@ -19,6 +19,7 @@ const Articl = (props) => {
     const { posts } = state.rootReducer;
     return posts.slug;
   });
+
 
   const title = useSelector((state) => {
     if (props.slug === slugPost) {
@@ -41,6 +42,8 @@ const Articl = (props) => {
     }
   });
 
+  // console.log(likepost)
+
   // console.log(props.slug, slugPost);
 
   const openedPost = useSelector((state) => {
@@ -59,12 +62,12 @@ const Articl = (props) => {
     return users.isAutorize;
   });
   // dispatch(getArticlSlug(props.slug));
-  const toggleLike = (favorite) => {
+  const toggleLike = (favorited) => {
     if (isAutorize) {
-      favorite ? dispatch(likeArticl(props.slug, token)) : dispatch(disLikeArticl(props.slug, token));
+      !favorited ? dispatch(likeArticl(props.slug, token)) : dispatch(disLikeArticl(props.slug, token));
     }
   };
-
+console.log(props.favorited)
   return (
     <>
       <div className={articl.articl}>
@@ -75,9 +78,9 @@ const Articl = (props) => {
                 <span>{title ? title : props.title}</span>
               </Link>
 
-              <button onClick={() => toggleLike(liked)} className={articl.favorite}>
+              <button onClick={() => toggleLike(props.favorited)} className={articl.favorite}>
                 {' '}
-                {liked ? '❤️' : '🤍'}
+                {props.favorited ? '❤️' : '🤍'}
               </button>
             </div>
             <div>

@@ -26,6 +26,11 @@ const ArticlList = (props) => {
     return users.username;
   });
 
+  // const post = useSelector((state) => {
+  //   const { posts } = state.rootReducer;
+  //   return posts.post;
+  // });
+
   const favorited = useSelector((state) => {
     const { posts } = state.rootReducer;
     return posts.favorited;
@@ -35,15 +40,16 @@ const ArticlList = (props) => {
 
   const slugPost = useSelector((state) => {
     const { posts } = state.rootReducer;
+    console.log(posts)
     return posts.slug;
   });
 
   const toggleLike = () => {
     setLiked(!liked);
     if (!liked) {
-      dispatch(likeArticl(slugPost, token));
+      dispatch(likeArticl(slug, token));
     } else {
-      dispatch(disLikeArticl(slugPost, token));
+      dispatch(disLikeArticl(slug, token));
     }
   };
   let data = null;
@@ -75,7 +81,8 @@ const ArticlList = (props) => {
                     <span>{posts.title}</span>
                     <button className={articlList.favorite} onClick={toggleLike}>
                       {' '}
-                      {(slug === slugPost ? favorited : false) ? '❤️' : '🤍'}
+                      {/* {(slug === slugPost ? favorited : false) ? '❤️' : '🤍'} */}
+                      {props.favorited ? '❤️' : '🤍'}
                     </button>
                   </div>
                   <div>
