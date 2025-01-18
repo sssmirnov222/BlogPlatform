@@ -41,7 +41,7 @@ const Articl = (props) => {
     }
   });
 
-  console.log(props.slug, slugPost);
+  // console.log(props.slug, slugPost);
 
   const openedPost = useSelector((state) => {
     if (props.slug === slugPost) {
@@ -50,7 +50,7 @@ const Articl = (props) => {
     }
   });
 
-  console.log(openedPost);
+  // console.log(openedPost);
 
   // console.log(likepost);
 

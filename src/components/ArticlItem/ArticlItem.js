@@ -19,7 +19,7 @@ const ArticlItem = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     fetchgetPosts(page).then((res) => {
-      console.log(res);
+      // console.log(res);
       setPosts(res.articles);
       setPageQty(res.articlesCount);
       dispatch(getArticles(res.articles));
@@ -63,7 +63,7 @@ const ArticlItem = () => {
               page={page}
               onChange={(_, num) => {
                 setPage(num);
-                console.log(page);
+                // console.log(page);
               }}
             ></Pagination>
           }

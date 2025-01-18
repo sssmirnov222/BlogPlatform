@@ -15,13 +15,13 @@ const SingIp = () => {
 
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
+    // console.log(users);
     return users.isAutorize;
   });
 
   const error = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
+    // console.log(users);
     return users.errors;
   });
 
@@ -40,7 +40,7 @@ const SingIp = () => {
   password.current = watch('password', '');
 
   function onSubmit(data) {
-    console.log(data);
+    // console.log(data);
     dispatch(singIn(data));
     if (error) {
       message.error('Ошибка, такого пользователя несуществует!');

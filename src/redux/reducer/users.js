@@ -1,6 +1,7 @@
 import { SING_IN_USER, SING_UP_USER, SING_LOGOUT_USER, EDIT_USER, SING_ERR_USER } from '../types';
 
 const isUserData = localStorage.getItem('user');
+console.log("isUserData",isUserData)
 // const removeUser = localStorage.removeItem('user');
 
 export const initialState = isUserData
@@ -35,7 +36,7 @@ const users = (state = initialState, { type, payload, token, username, image, er
       };
 
     case SING_LOGOUT_USER:
-      console.log('тут');
+      // console.log('тут');
       return {
         isAutorize: false,
       };

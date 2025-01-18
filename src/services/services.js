@@ -143,7 +143,9 @@ export const singInUser = async (value) => {
   });
 
   let res = await url.json();
-  console.log(res);
+  if (res.user.token) {
+    localStorage.setItem('user', JSON.stringify(res.user));
+  }
   return res;
 };
 

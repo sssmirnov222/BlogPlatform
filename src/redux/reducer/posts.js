@@ -14,7 +14,7 @@ export const initialState = {
 };
 
 const posts = (state = initialState, { type, slug, url, title, body, description, payload, response }) => {
-  console.log(slug);
+  // console.log(slug);
   switch (type) {
     case CREATE_ARTICL:
       return {
@@ -50,7 +50,7 @@ const posts = (state = initialState, { type, slug, url, title, body, description
       };
 
     case LIKE_ARTICL:
-      console.log(state.post, slug);
+      // console.log(state.post, slug);
       return {
         ...state,
         url: url,

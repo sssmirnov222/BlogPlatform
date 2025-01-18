@@ -3,7 +3,7 @@ import { singInUser, singUpUser, editProfile } from '../../services/services';
 
 export const singUp = (value) => async (dispatch) => {
   const response = await singUpUser(value);
-  console.log('response', response);
+
   try {
     if (response.user) {
       return dispatch({
@@ -38,6 +38,7 @@ export const singOut = (dispatch) => {
 export const singIn = (value) => async (dispatch) => {
   const response = await singInUser(value);
   console.log(response.errors);
+  // console.log(response);
   try {
     if (response.user) {
       return dispatch({

@@ -42,7 +42,7 @@ const CreateArticl = () => {
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
+    // console.log(users);
     return users.token;
   });
 
@@ -51,7 +51,7 @@ const CreateArticl = () => {
     return posts.url;
   });
 
-  console.log(url);
+  // console.log(url);
 
   function onSubmit(data) {
     setSubmit(true);

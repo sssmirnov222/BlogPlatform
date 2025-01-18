@@ -31,7 +31,7 @@ const ArticlList = (props) => {
     return posts.favorited;
   });
 
-  console.log('liked', liked);
+  // console.log('liked', liked);
 
   const slugPost = useSelector((state) => {
     const { posts } = state.rootReducer;
