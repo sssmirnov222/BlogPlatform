@@ -6,6 +6,8 @@ import { Pagination } from '@mui/material';
 import Articl from '../Articles/Articl';
 import { fetchgetPosts } from '../../services/services';
 import { Spin } from 'antd';
+import { useDispatch } from 'react-redux';
+import { getArticles } from '../../redux/actions/actiosPosts';
 // import ArticlList from '../ArticlList/ArticlList';
 
 const ArticlItem = () => {
@@ -13,11 +15,14 @@ const ArticlItem = () => {
   const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(1);
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchgetPosts(page).then((res) => {
       console.log(res);
       setPosts(res.articles);
       setPageQty(res.articlesCount);
+      dispatch(getArticles(res.articles));
       setLoading(false);
     });
   }, [page]);
@@ -34,7 +39,7 @@ const ArticlItem = () => {
               let tagList = articl.tagList.map((e) => e);
 
               return (
-                <div className={articlItem.articlList} key={articl.title}>
+                <div className={articlItem.articlList} key={id}>
                   <Articl
                     key={id}
                     slug={articl.slug}

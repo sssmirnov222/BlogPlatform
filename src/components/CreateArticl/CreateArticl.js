@@ -51,10 +51,14 @@ const CreateArticl = () => {
     return posts.url;
   });
 
+  console.log(url);
+
   function onSubmit(data) {
     setSubmit(true);
     dispatch(createArticl(data, token));
-    navigate('/');
+    if (url) {
+      message.success('Пост успешно создан');
+    }
   }
 
   return (

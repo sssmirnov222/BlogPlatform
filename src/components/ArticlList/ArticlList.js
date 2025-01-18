@@ -40,7 +40,7 @@ const ArticlList = (props) => {
 
   const toggleLike = () => {
     setLiked(!liked);
-    if (liked === false) {
+    if (!liked) {
       dispatch(likeArticl(slugPost, token));
     } else {
       dispatch(disLikeArticl(slugPost, token));
@@ -118,7 +118,7 @@ const ArticlList = (props) => {
                       onConfirm={() => {
                         deletePost(slug, token);
 
-                        message.success('Пост успешно удалён');
+                        message.success('Пост успешно удалён, обновите страницу');
                         navigate('/');
                       }}
                       onCancel={() => message.error('Click on No')}

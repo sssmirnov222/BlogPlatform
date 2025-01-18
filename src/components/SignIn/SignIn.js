@@ -5,6 +5,7 @@ import { singIn } from '../../redux/actions/actionUsers';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
 const SingIp = () => {
   // const [email, setEmail] = useState('');
   // const [password, setPassword] = useState('');
@@ -17,6 +18,14 @@ const SingIp = () => {
     console.log(users);
     return users.isAutorize;
   });
+
+  const error = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.errors;
+  });
+
+  console.log(error);
 
   const {
     register,
@@ -33,6 +42,9 @@ const SingIp = () => {
   function onSubmit(data) {
     console.log(data);
     dispatch(singIn(data));
+    if (error) {
+      message.error('Ошибка, такого пользователя несуществует!');
+    }
   }
 
   if (isAutorize) {

@@ -1,14 +1,37 @@
-import { CREATE_ARTICL, DELETE_ARTICL, EDIT_ARTICL, LIKE_ARTICL, DISLIKE_ARTICL } from '../types';
+import {
+  CREATE_ARTICL,
+  DELETE_ARTICL,
+  EDIT_ARTICL,
+  LIKE_ARTICL,
+  DISLIKE_ARTICL,
+  GET_ARTICLES,
+  GET_ARTICL,
+} from '../types';
 
-const initialState = {};
+export const initialState = {
+  post: [],
+  openedPost: null,
+};
 
-const posts = (state = initialState, { type, slug, url, favorited, title, body, description }) => {
-  console.log(title, body, description);
+const posts = (state = initialState, { type, slug, url, title, body, description, payload, response }) => {
+  console.log(slug);
   switch (type) {
     case CREATE_ARTICL:
       return {
         ...state,
         url: url,
+      };
+
+    case GET_ARTICLES:
+      return {
+        ...state,
+        post: payload,
+      };
+
+    case GET_ARTICL:
+      return {
+        ...state,
+        openedPost: response,
       };
 
     case DELETE_ARTICL:
@@ -27,23 +50,21 @@ const posts = (state = initialState, { type, slug, url, favorited, title, body, 
       };
 
     case LIKE_ARTICL:
+      console.log(state.post, slug);
       return {
         ...state,
         url: url,
-        favorited: favorited,
-        slug: slug,
-        // openedPost: response,
-        // posts: state.posts.map((post) => (post.slug === response.slug ? response : post)),
+        openedPost: response,
+        post: state.post.map((post) => (post.slug === slug ? payload : post)),
       };
 
     case DISLIKE_ARTICL:
       return {
         ...state,
         url: url,
-        favorited: favorited,
+        openedPost: response,
         slug: slug,
-        // openedPost: response,
-        // posts: state.posts.map((post) => (post.slug === response.slug ? response : post)),
+        post: state.post.map((post) => (post.slug === slug ? payload : post)),
       };
 
     default:

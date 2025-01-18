@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { singUp } from '../../redux/actions/actionUsers';
 import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
 
 const SingUp = () => {
   let navigate = useNavigate();
@@ -23,12 +24,21 @@ const SingUp = () => {
     mode: 'onBlur',
   });
 
+  const error = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.errors;
+  });
+
   const password = useRef({});
   password.current = watch('password', '');
 
   function onSubmit(data) {
     console.log(data);
     dispatch(singUp(data));
+    if (error) {
+      message.error('Ошибка, такой пользователь уже есть!');
+    }
   }
 
   if (isAutorize) {

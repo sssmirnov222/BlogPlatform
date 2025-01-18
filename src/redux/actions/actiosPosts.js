@@ -1,5 +1,13 @@
-import { CREATE_ARTICL, DELETE_ARTICL, EDIT_ARTICL, LIKE_ARTICL, DISLIKE_ARTICL } from '../types';
-import { createPost, deletePost, editPost, likePost, dislikePost } from '../../services/services';
+import {
+  CREATE_ARTICL,
+  DELETE_ARTICL,
+  EDIT_ARTICL,
+  LIKE_ARTICL,
+  DISLIKE_ARTICL,
+  GET_ARTICLES,
+  GET_ARTICL,
+} from '../types';
+import { createPost, deletePost, editPost, likePost, dislikePost, fetchGetPostSlug } from '../../services/services';
 
 export const createArticl = (data, token) => async (dispatch) => {
   const response = await createPost(data, token);
@@ -16,6 +24,24 @@ export const createArticl = (data, token) => async (dispatch) => {
   } catch (error) {
     console.log('Create Articl', error);
   }
+};
+
+export const getArticles = (payload) => async (dispatch) => {
+  console.log(payload);
+  return dispatch({
+    type: GET_ARTICLES,
+    payload: payload,
+  });
+};
+
+export const getArticlSlug = (slug) => async (dispatch) => {
+  const response = await fetchGetPostSlug(slug);
+  console.log(response);
+  return dispatch({
+    type: GET_ARTICL,
+    slug: response.slug,
+    response: response,
+  });
 };
 
 export const deleteArticl = (slug, token) => async (dispatch) => {

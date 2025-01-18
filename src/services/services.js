@@ -3,7 +3,7 @@ const baseUrl = 'https://blog-platform.kata.academy/api';
 export const fetchgetPosts = async (page) => {
   let url = await fetch(`${baseUrl}/articles?limit=${4}&offset=${page}`);
   let res = await url.json();
-  // console.log(res);
+  console.log(res);
   return res;
 };
 

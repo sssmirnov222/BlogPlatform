@@ -3,9 +3,12 @@ import style from './EditProfile.module.scss';
 import { useForm } from 'react-hook-form';
 import { editUser } from '../../redux/actions/actionUsers';
 import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
@@ -25,9 +28,29 @@ const EditProfile = () => {
   const password = useRef({});
   password.current = watch('password', '');
 
+  const error = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.errors;
+  });
+
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.isAutorize;
+  });
+
   function onSubmit(data) {
     console.log(data);
-    dispatch(editUser(data, token));
+    if (isAutorize) {
+      dispatch(editUser(data, token));
+      message.success('Профиль успешно отредактирован!');
+    }
+
+    if (error) {
+      message.error('Ошибка');
+      navigate('/sign-in');
+    }
   }
   return (
     <div className={style.container}>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import articl from './Articl.module.scss';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { disLikeArticl, likeArticl } from '../../redux/actions/actiosPosts';
+import { disLikeArticl, getArticlSlug, likeArticl } from '../../redux/actions/actiosPosts';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Articl = (props) => {
@@ -20,32 +20,48 @@ const Articl = (props) => {
     return posts.slug;
   });
 
-  const favorited = useSelector((state) => {
-    const { posts } = state.rootReducer;
-    return posts.favorited;
-  });
-
   const title = useSelector((state) => {
-    const { posts } = state.rootReducer;
-    return posts.title;
+    if (props.slug === slugPost) {
+      const { posts } = state.rootReducer;
+      return posts.title;
+    }
   });
 
   const body = useSelector((state) => {
-    const { posts } = state.rootReducer;
-    return posts.body;
+    if (props.slug === slugPost) {
+      const { posts } = state.rootReducer;
+      return posts.body;
+    }
   });
 
-  const description = useSelector((state) => {
-    const { posts } = state.rootReducer;
-    return posts.description;
+  const likepost = useSelector((state) => {
+    if (props.slug === slugPost) {
+      const { posts } = state.rootReducer;
+      return posts.post;
+    }
   });
 
-  const toggleLike = () => {
-    setLiked(!liked);
-    if (liked === false) {
-      dispatch(likeArticl(props.slug, token));
-    } else {
-      dispatch(disLikeArticl(props.slug, token));
+  console.log(props.slug, slugPost);
+
+  const openedPost = useSelector((state) => {
+    if (props.slug === slugPost) {
+      const { posts } = state.rootReducer;
+      return posts.openedPost;
+    }
+  });
+
+  console.log(openedPost);
+
+  // console.log(likepost);
+
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.isAutorize;
+  });
+  dispatch(getArticlSlug(props.slug));
+  const toggleLike = (favorite) => {
+    if (isAutorize) {
+      favorite ? dispatch(likeArticl(props.slug, token)) : dispatch(disLikeArticl(props.slug, token));
     }
   };
 
@@ -56,12 +72,12 @@ const Articl = (props) => {
           <div className={articl.articl__header_info}>
             <div className={articl.articl__header_infoTitle}>
               <Link to={`/articles/${props.slug}`} className={articl.linkTitle}>
-                <span>{props.title !== title && props.slug === slugPost ? title : props.title}</span>
+                <span>{title ? title : props.title}</span>
               </Link>
 
-              <button onClick={toggleLike} className={articl.favorite}>
+              <button onClick={() => toggleLike(liked)} className={articl.favorite}>
                 {' '}
-                {(props.slug === slugPost ? favorited : false) ? '❤️' : '🤍'}
+                {liked ? '❤️' : '🤍'}
               </button>
             </div>
             <div>
@@ -102,7 +118,7 @@ const Articl = (props) => {
         <Link to={`/articles/${props.slug}`} className={articl.link}>
           {' '}
           <main className={articl.articl__main}>
-            <p className={articl.articl__main_text}>{props.body}</p>
+            <p className={articl.articl__main_text}>{body || props.body}</p>
           </main>
         </Link>
       </div>
