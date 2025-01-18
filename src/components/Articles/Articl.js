@@ -58,7 +58,7 @@ const Articl = (props) => {
     const { users } = state.rootReducer;
     return users.isAutorize;
   });
-  dispatch(getArticlSlug(props.slug));
+  // dispatch(getArticlSlug(props.slug));
   const toggleLike = (favorite) => {
     if (isAutorize) {
       favorite ? dispatch(likeArticl(props.slug, token)) : dispatch(disLikeArticl(props.slug, token));
