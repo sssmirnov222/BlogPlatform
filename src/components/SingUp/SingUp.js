@@ -126,7 +126,7 @@ const SingUp = () => {
               />
               <span>I agree to the processing of my personal information</span>
             </label>
-            {errors?.checkbox?.message && <p>{errors?.checkbox?.message || 'Error'}</p>}
+            {errors?.checkbox?.message && <p className={style.checkbox}>{errors?.checkbox?.message || 'Error'}</p>}
 
             <button type="submit" className={style.create}>
               Create

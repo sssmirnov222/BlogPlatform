@@ -18,7 +18,7 @@
       .singUp__form {
         display: flex;
         flex-direction: column;
-        align-items: baseline;
+        align-items: center;
         .singUp__inputUsername,
         .singUp__inputEmail,
         .singUp__inputPassword,
@@ -58,7 +58,9 @@
 }
 .processing span {
   font-size: 14px;
-  margin: 20px 10px;
+  margin: 20px 1px;
+  width: 300px;
+  text-align: left;
 }
 .processing input {
   height: 30px;
@@ -68,7 +70,7 @@
 .create {
   color: white;
   background: #1890ff;
-  width: 85%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 10px;
   text-align: center;
@@ -87,7 +89,8 @@
 .userClassErrors,
 .userEmailErrors,
 .userPasswordErrors,
-.userRepeatPasswordErrors {
+.userRepeatPasswordErrors,
+.checkbox {
   font-size: 12px;
   color: red;
   margin: 0;
