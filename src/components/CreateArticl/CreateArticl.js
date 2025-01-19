@@ -8,6 +8,7 @@ import { message } from 'antd';
 
 const CreateArticl = () => {
   const [tag, setTag] = useState('');
+  const [tags, setTags] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const CreateArticl = () => {
 
   const addTag = () => {
     append(tag);
+    setTags(tags.push(tag));
     append(
       <input
         onChange={() => onChangeTag(tag)}
