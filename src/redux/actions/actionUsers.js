@@ -37,22 +37,21 @@ export const singOut = (dispatch) => {
 
 export const singIn = (value) => async (dispatch) => {
   const response = await singInUser(value);
-  console.log(response.errors);
-  // console.log(response);
+  console.log(response);
+
   try {
-    if (response.user) {
-      return dispatch({
-        type: SING_IN_USER,
-        errors: response.errors,
-        ...response.user,
-      });
-    }
     if (response.errors) {
       return dispatch({
         type: SING_ERR_USER,
         errors: response.errors,
       });
     }
+    return dispatch({
+      type: SING_IN_USER,
+      errors: response.errors,
+      username: response.user.username,
+      response: response.user,
+    });
   } catch (error) {
     console.log('SingIn', error);
   }
@@ -62,19 +61,14 @@ export const editUser = (value, token) => async (dispatch) => {
   const response = await editProfile(value, token);
   console.log(response);
   try {
-    if (response.errors) {
-      return dispatch({
-        type: SING_ERR_USER,
-        errors: response.errors,
-      });
-    }
     return dispatch({
+      response: response.user,
       type: EDIT_USER,
       image: response.user.image,
       errors: response.errors,
       url: response.url,
     });
   } catch (error) {
-    console.log('SingIn', error);
+    console.log('editUser', error);
   }
 };

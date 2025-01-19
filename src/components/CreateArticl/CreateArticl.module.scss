@@ -27,6 +27,7 @@
   margin-top: 20px;
   .formArticlTagInput {
     display: flex;
+    flex-direction: column;
   }
 }
 
@@ -57,6 +58,7 @@
 }
 
 .deleteTag {
+  height: 40px;
   background: white;
   border: 2px solid #f5222d;
   margin-left: 15px;
@@ -68,6 +70,7 @@
 }
 
 .addTag {
+  height: 40px;
   background: white;
   border: 2px solid #1890ff;
   margin-left: 15px;
@@ -95,4 +98,14 @@
   margin: 0;
   text-align: center;
   margin-top: 2px;
+}
+
+.startTag {
+  text-align: start;
+}
+
+.Tag {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 }

@@ -8,14 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { message, Popconfirm } from 'antd';
 import { deletePost } from '../../services/services';
 import { disLikeArticl, likeArticl } from '../../redux/actions/actiosPosts';
-import { containerClasses } from '@mui/material';
 
 const ArticlList = (props) => {
   const { slug } = useParams();
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const [liked, setLiked] = useState(false);
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
@@ -26,32 +24,37 @@ const ArticlList = (props) => {
     return users.username;
   });
 
-  // const post = useSelector((state) => {
-  //   const { posts } = state.rootReducer;
-  //   return posts.post;
-  // });
-
-  const favorited = useSelector((state) => {
+  const title = useSelector((state) => {
     const { posts } = state.rootReducer;
-    return posts.favorited;
+    return posts.title;
   });
-
-  // console.log('liked', liked);
 
   const slugPost = useSelector((state) => {
     const { posts } = state.rootReducer;
-    console.log(posts)
     return posts.slug;
   });
 
-  const toggleLike = () => {
-    setLiked(!liked);
-    if (!liked) {
-      dispatch(likeArticl(slug, token));
+  const openedPost = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    console.log(posts);
+    return posts.openedPost;
+  });
+
+  console.log(openedPost);
+
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.isAutorize;
+  });
+
+  const toggleLike = (favorited) => {
+    if (isAutorize) {
+      !favorited ? dispatch(likeArticl(slug, token)) : dispatch(disLikeArticl(slug, token));
     } else {
-      dispatch(disLikeArticl(slug, token));
+      navigate('/sign-in');
     }
   };
+
   let data = null;
 
   try {
@@ -78,17 +81,21 @@ const ArticlList = (props) => {
               <header className={articlList.articl__header}>
                 <div className={articlList.articl__header_info}>
                   <div className={articlList.articl__header_infoTitle}>
-                    <span>{posts.title}</span>
-                    <button className={articlList.favorite} onClick={toggleLike}>
+                    <span>{(slug === slugPost ? title : false) ? title : posts.title}</span>
+
+                    <button className={articlList.favorite} onClick={() => toggleLike(openedPost.favorited)}>
                       {' '}
-                      {/* {(slug === slugPost ? favorited : false) ? '❤️' : '🤍'} */}
-                      {props.favorited ? '❤️' : '🤍'}
+                      {(slug === openedPost.slug ? openedPost.favorited : false) ? '❤️' : '🤍'}
                     </button>
                   </div>
                   <div>
-                    {posts.tagList.map((e) => {
+                    {posts.tagList.map((e, id) => {
                       if (e === '') return '';
-                      return <span className={articlList.articl__header_infoTags}>{e}</span>;
+                      return (
+                        <span className={articlList.articl__header_infoTags} key={id}>
+                          {e}
+                        </span>
+                      );
                     })}
                   </div>
                 </div>
@@ -178,4 +185,4 @@ const ArticlList = (props) => {
   }
 };
 
-export { ArticlList };
+export default ArticlList;

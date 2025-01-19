@@ -67,6 +67,7 @@ export const editArticl = (value, slug, token) => async (dispatch) => {
       title: response.article.slug === slug ? response.article.title : '',
       body: response.article.slug === slug ? response.article.body : '',
       description: response.article.slug === slug ? response.article.description : '',
+      slug: response.article.slug,
     });
   } catch (error) {
     console.log('Error edit articl', error);

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import style from './CreateArticl.module.scss';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { createArticl } from '../../redux/actions/actiosPosts';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { message } from 'antd';
 
 const CreateArticl = () => {
   const [tag, setTag] = useState('');
-  const [submit, setSubmit] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +28,15 @@ const CreateArticl = () => {
 
   const addTag = () => {
     append(tag);
+    append(
+      <input
+        onChange={() => onChangeTag(tag)}
+        placeholder="Tag"
+        {...register('tagList', {
+          required: 'Tag enter',
+        })}
+      />
+    );
     setTag('');
   };
 
@@ -46,19 +54,26 @@ const CreateArticl = () => {
     return users.token;
   });
 
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.isAutorize;
+  });
+
   const url = useSelector((state) => {
     const { posts } = state.rootReducer;
     return posts.url;
   });
 
-  // console.log(url);
+  console.log(url);
 
   function onSubmit(data) {
-    setSubmit(true);
     dispatch(createArticl(data, token));
-    if (url) {
+    if (url === 200) {
       message.success('Пост успешно создан');
     }
+  }
+  if (!isAutorize) {
+    navigate('/');
   }
 
   return (
@@ -106,19 +121,38 @@ const CreateArticl = () => {
           <label className={style.formArticlTag}>
             <span>Tags</span>
             <div className={style.formArticlTagInput}>
-              <input
-                onChange={onChangeTag}
-                placeholder="Tag"
-                {...register('tagList', {
-                  required: 'Tag enter',
-                })}
-              />
-              <button className={style.deleteTag} onClick={removeTag()}>
-                Delete
-              </button>
-              <button className={style.addTag} onClick={addTag}>
-                Add Tag
-              </button>
+              <div className={style.startTag}>
+                <input
+                  onChange={() => onChangeTag(tag)}
+                  placeholder="Tag"
+                  {...register('tagList', {
+                    required: 'Tag enter',
+                  })}
+                />
+                <button className={style.addTag} onClick={addTag}>
+                  Add Tag
+                </button>
+              </div>
+
+              {fields.map((item, index) => (
+                <div key={item.id} className={style.Tag}>
+                  <Fragment key={item.id}>
+                    <Controller
+                      render={({ field }) => <p>{field.value}</p>}
+                      name={`tags[${index}]`}
+                      control={control}
+                    />
+                    <button className={style.addTag} onClick={addTag}>
+                      Add Tag
+                    </button>
+                    <button className={style.deleteTag} onClick={removeTag(index)}>
+                      Delete
+                    </button>
+
+                    <br />
+                  </Fragment>
+                </div>
+              ))}
             </div>
           </label>
           {errors?.tags?.message && <p>{errors?.tags?.message || 'Error'}</p>}

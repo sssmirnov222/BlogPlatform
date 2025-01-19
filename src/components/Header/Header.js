@@ -14,13 +14,13 @@ const Header = () => {
 
   const username = useSelector((state) => {
     const { users } = state.rootReducer;
-    // console.log(users);
     return users.username;
   });
 
+  console.log(username);
+
   const image = useSelector((state) => {
     const { users } = state.rootReducer;
-    // console.log(users);
     return users.image;
   });
 

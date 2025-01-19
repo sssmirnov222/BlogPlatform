@@ -17,6 +17,11 @@ const EditArticl = () => {
     return users.token;
   });
 
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.isAutorize;
+  });
+
   const {
     register,
     handleSubmit,
@@ -28,6 +33,10 @@ const EditArticl = () => {
   function onSubmit(data) {
     dispatch(editArticl(data, slug, token));
     message.success('Пост успешно изменён');
+    navigate('/');
+  }
+
+  if (!isAutorize) {
     navigate('/');
   }
 

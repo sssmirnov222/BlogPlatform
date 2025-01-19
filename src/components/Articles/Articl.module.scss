@@ -14,8 +14,6 @@
     .articl__header_info {
       text-align: left;
       .articl__header_infoTitle {
-        display: flex;
-        align-items: center;
         font-weight: 400;
         color: #1890ff;
         font-size: 20px;
@@ -51,6 +49,7 @@
 
         .articl__header_userData {
           color: grey;
+          text-align: left;
         }
       }
     }

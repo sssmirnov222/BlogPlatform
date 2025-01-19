@@ -10,11 +10,11 @@ import {
 
 export const initialState = {
   post: [],
-  openedPost: null,
+  openedPost: {},
 };
 
 const posts = (state = initialState, { type, slug, url, title, body, description, payload, response }) => {
-  // console.log(slug);
+  console.log(slug);
   switch (type) {
     case CREATE_ARTICL:
       return {
@@ -45,13 +45,12 @@ const posts = (state = initialState, { type, slug, url, title, body, description
         ...state,
         url: url,
         title: title,
+        slug: slug,
         body: body,
         description: description,
       };
 
     case LIKE_ARTICL:
-    
-
       return {
         ...state,
         url: url,

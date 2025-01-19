@@ -40,18 +40,32 @@ const EditProfile = () => {
     return users.isAutorize;
   });
 
+  const username = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.username;
+  });
+
+  const email = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.email;
+  });
+
   function onSubmit(data) {
     console.log(data);
     if (isAutorize) {
       dispatch(editUser(data, token));
       message.success('Профиль успешно отредактирован!');
     }
-
     if (error) {
       message.error('Ошибка');
       navigate('/sign-in');
     }
   }
+
+  if (!isAutorize) {
+    navigate('/');
+  }
+
   return (
     <div className={style.container}>
       <div className={style.singUpEdit}>
@@ -62,6 +76,7 @@ const EditProfile = () => {
               <span>Username</span>
               <input
                 type="text"
+                defaultValue={username}
                 placeholder="Username"
                 {...register('username', {
                   required: 'Please enter your username',
@@ -77,6 +92,7 @@ const EditProfile = () => {
             <label className={style.singUpEdit__inputEmail}>
               <span>Email address</span>
               <input
+                defaultValue={email}
                 type="email"
                 placeholder="Email adress"
                 {...register('email', {
