@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import articl from './Articl.module.scss';
 import { format } from 'date-fns';
 import { Link, useNavigate } from 'react-router-dom';
@@ -35,7 +35,6 @@ const Articl = (props) => {
     return users.isAutorize;
   });
 
-  // dispatch(getArticlSlug(props.slug));
   const toggleLike = (favorited) => {
     if (isAutorize) {
       !favorited ? dispatch(likeArticl(props.slug, token)) : dispatch(disLikeArticl(props.slug, token));
@@ -43,7 +42,6 @@ const Articl = (props) => {
       navigate('/sign-in');
     }
   };
-  console.log(props.favorited);
   return (
     <>
       <div className={articl.articl}>

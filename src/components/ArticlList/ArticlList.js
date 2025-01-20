@@ -36,11 +36,10 @@ const ArticlList = (props) => {
 
   const openedPost = useSelector((state) => {
     const { posts } = state.rootReducer;
-    console.log(posts);
-    return posts.openedPost;
+    return posts;
   });
 
-  console.log(openedPost);
+  let postFind = openedPost.post.find((post) => post.slug === slug);
 
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
@@ -67,7 +66,6 @@ const ArticlList = (props) => {
     fetch(`https://blog-platform.kata.academy/api/articles/${slug}`)
       .then((data) => data.json())
       .then((data) => {
-        // console.log('data', data);
         setPosts(data.article);
       });
   }, [slug]);
@@ -85,7 +83,7 @@ const ArticlList = (props) => {
 
                     <button className={articlList.favorite} onClick={() => toggleLike(openedPost.favorited)}>
                       {' '}
-                      {(slug === openedPost.slug ? openedPost.favorited : false) ? '❤️' : '🤍'}
+                      {(slug === postFind.slug ? postFind.favorited : false) ? '❤️' : '🤍'}
                     </button>
                   </div>
                   <div>

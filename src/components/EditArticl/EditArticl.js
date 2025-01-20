@@ -31,9 +31,13 @@ const EditArticl = () => {
   });
 
   function onSubmit(data) {
-    dispatch(editArticl(data, slug, token));
-    message.success('Пост успешно изменён');
-    navigate('/');
+    try {
+      dispatch(editArticl(data, slug, token));
+      message.success('Пост успешно изменён');
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   if (!isAutorize) {

@@ -11,7 +11,6 @@ const SingUp = () => {
   const dispatch = useDispatch();
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.isAutorize;
   });
 
@@ -26,7 +25,6 @@ const SingUp = () => {
 
   const error = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.errors;
   });
 
@@ -34,7 +32,6 @@ const SingUp = () => {
   password.current = watch('password', '');
 
   function onSubmit(data) {
-    console.log(data);
     dispatch(singUp(data));
     if (error) {
       message.error('Ошибка, такой пользователь уже есть!');

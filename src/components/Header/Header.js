@@ -6,9 +6,9 @@ import { singOut } from '../../redux/actions/actionUsers';
 
 const Header = () => {
   const dispatch = useDispatch();
+
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-
     return users.isAutorize;
   });
 
@@ -17,8 +17,7 @@ const Header = () => {
     return users.username;
   });
 
-  console.log(username);
-
+  let names = username;
   const image = useSelector((state) => {
     const { users } = state.rootReducer;
     return users.image;
@@ -37,7 +36,7 @@ const Header = () => {
               Create Article
             </NavLink>
             <NavLink to={'/profile'} className={header.header__users_info}>
-              <span>{username}</span>
+              <span>{names}</span>
               <img
                 className={header.header__users_infoImage}
                 src={

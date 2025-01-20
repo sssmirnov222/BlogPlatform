@@ -4,7 +4,6 @@ export const fetchgetPosts = async (page) => {
   try {
     let url = await fetch(`${baseUrl}/articles?limit=${4}&offset=${page}`);
     let res = await url.json();
-    console.log(res);
     return res;
   } catch (error) {
     alert('Ошибка при открытии поста');
@@ -16,7 +15,6 @@ export const fetchGetPostSlug = async (slug) => {
   try {
     let url = await fetch(`${baseUrl}/articles/${slug}`);
     let res = await url.json();
-    // console.log(res);
     return res;
   } catch (error) {
     alert('Ошибка при открытии поста');
@@ -40,8 +38,6 @@ export const createPost = async (value, token) => {
     });
     let res = await url.json();
     res.url = url.status;
-    console.log(res);
-    console.log(url.status);
     return res;
   } catch (error) {
     alert('Ошибка при создании поста');
@@ -64,8 +60,6 @@ export const editPost = async (value, slug, token) => {
     });
     let res = await url.json();
     res.url = url.status;
-    console.log(res);
-    console.log(url.status);
     return res;
   } catch (error) {
     alert('Ошибка при редактировании поста');
@@ -86,7 +80,6 @@ export const deletePost = async (slug, token) => {
     console.log(url.status);
     let res = await url.json();
     res.url = url.status;
-    console.log(res);
     return res;
   } catch (error) {
     console.log(error);
@@ -105,8 +98,6 @@ export const likePost = async (slug, token) => {
     });
     let res = await url.json();
     res.url = url.status;
-    console.log(res);
-    console.log(url.status);
     return res;
   } catch (e) {
     alert('Ошибка при постановке лайка');
@@ -125,8 +116,6 @@ export const dislikePost = async (slug, token) => {
     });
     let res = await url.json();
     res.url = url.status;
-    console.log(res);
-    console.log(url.status);
     return res;
   } catch (e) {
     alert('Ошибка при постановке дизлайка');
@@ -203,11 +192,11 @@ export const editProfile = async (value, token) => {
 
     let res = await url.json();
     res.url = url.status;
-    console.log(url.status);
-    console.log(res);
     return res;
   } catch (e) {
-    alert('Ошибка при обновлении');
+    if (e.response.status === 422) {
+      alert('You are already subscribed to the plan');
+    }
     console.log(e);
   }
 };

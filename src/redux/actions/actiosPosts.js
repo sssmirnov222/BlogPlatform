@@ -11,8 +11,6 @@ import { createPost, deletePost, editPost, likePost, dislikePost, fetchGetPostSl
 
 export const createArticl = (data, token) => async (dispatch) => {
   const response = await createPost(data, token);
-  console.log(response);
-
   try {
     return dispatch({
       type: CREATE_ARTICL,
@@ -27,7 +25,6 @@ export const createArticl = (data, token) => async (dispatch) => {
 };
 
 export const getArticles = (payload) => async (dispatch) => {
-  console.log(payload);
   return dispatch({
     type: GET_ARTICLES,
     payload: payload,
@@ -36,7 +33,6 @@ export const getArticles = (payload) => async (dispatch) => {
 
 export const getArticlSlug = (slug) => async (dispatch) => {
   const response = await fetchGetPostSlug(slug);
-  console.log(response);
   return dispatch({
     type: GET_ARTICL,
     slug: response.slug,
@@ -46,7 +42,6 @@ export const getArticlSlug = (slug) => async (dispatch) => {
 
 export const deleteArticl = (slug, token) => async (dispatch) => {
   const response = await deletePost(slug, token);
-  console.log(response);
   try {
     return dispatch({
       type: DELETE_ARTICL,
@@ -59,7 +54,6 @@ export const deleteArticl = (slug, token) => async (dispatch) => {
 
 export const editArticl = (value, slug, token) => async (dispatch) => {
   const response = await editPost(value, slug, token);
-  console.log(response);
   try {
     return dispatch({
       type: EDIT_ARTICL,
@@ -76,7 +70,6 @@ export const editArticl = (value, slug, token) => async (dispatch) => {
 
 export const likeArticl = (slug, token) => async (dispatch) => {
   const response = await likePost(slug, token);
-  console.log(response);
   try {
     return dispatch({
       type: LIKE_ARTICL,
@@ -91,7 +84,6 @@ export const likeArticl = (slug, token) => async (dispatch) => {
 
 export const disLikeArticl = (slug, token) => async (dispatch) => {
   const response = await dislikePost(slug, token);
-  console.log(response);
   try {
     return dispatch({
       type: DISLIKE_ARTICL,

@@ -8,8 +8,6 @@ import { message } from 'antd';
 
 const CreateArticl = () => {
   const [tag, setTag] = useState('');
-  const [tags, setTags] = useState([]);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,8 +26,6 @@ const CreateArticl = () => {
   });
 
   const addTag = () => {
-    append(tag);
-    setTags(tags.push(tag));
     append(
       <input
         onChange={() => onChangeTag(tag)}
@@ -52,7 +48,6 @@ const CreateArticl = () => {
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
-    // console.log(users);
     return users.token;
   });
 
@@ -61,18 +56,10 @@ const CreateArticl = () => {
     return users.isAutorize;
   });
 
-  const url = useSelector((state) => {
-    const { posts } = state.rootReducer;
-    return posts.url;
-  });
-
-  console.log(url);
-
   function onSubmit(data) {
+    navigate('/');
+    message.success('Пост успешно создан');
     dispatch(createArticl(data, token));
-    if (url === 200) {
-      message.success('Пост успешно создан');
-    }
   }
   if (!isAutorize) {
     navigate('/');
@@ -131,7 +118,7 @@ const CreateArticl = () => {
                     required: 'Tag enter',
                   })}
                 />
-                <button className={style.addTag} onClick={addTag}>
+                <button type="button" className={style.addTag} onClick={addTag}>
                   Add Tag
                 </button>
               </div>
@@ -144,10 +131,10 @@ const CreateArticl = () => {
                       name={`tags[${index}]`}
                       control={control}
                     />
-                    <button className={style.addTag} onClick={addTag}>
+                    <button type="button" className={style.addTag} onClick={addTag}>
                       Add Tag
                     </button>
-                    <button className={style.deleteTag} onClick={removeTag(index)}>
+                    <button type="button" className={style.deleteTag} onClick={removeTag(index)}>
                       Delete
                     </button>
 
