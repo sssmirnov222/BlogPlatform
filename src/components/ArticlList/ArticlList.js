@@ -2,14 +2,66 @@ import React from 'react';
 import articlList from './ArticlList.module.scss';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { message, Popconfirm } from 'antd';
+import { deletePost } from '../../services/services';
+import { disLikeArticl, likeArticl } from '../../redux/actions/actiosPosts';
 
 const ArticlList = (props) => {
   const { slug } = useParams();
-
   const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
-  // let data = format(posts.createdAt, 'dd MMMM yyyy');
+  const token = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.token;
+  });
+  const username = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.username;
+  });
+
+  const title = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    return posts.title;
+  });
+
+  const slugPost = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    return posts.slug;
+  });
+
+  const openedPost = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    console.log(posts);
+    return posts.openedPost;
+  });
+
+  console.log(openedPost);
+
+  const isAutorize = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.isAutorize;
+  });
+
+  const toggleLike = (favorited) => {
+    if (isAutorize) {
+      !favorited ? dispatch(likeArticl(slug, token)) : dispatch(disLikeArticl(slug, token));
+    } else {
+      navigate('/sign-in');
+    }
+  };
+
+  let data = null;
+
+  try {
+    data = format(posts.createdAt, 'dd MMMM yyyy');
+  } catch (e) {
+    console.log('Error time', e);
+  }
 
   useEffect(() => {
     fetch(`https://blog-platform.kata.academy/api/articles/${slug}`)
@@ -29,12 +81,21 @@ const ArticlList = (props) => {
               <header className={articlList.articl__header}>
                 <div className={articlList.articl__header_info}>
                   <div className={articlList.articl__header_infoTitle}>
-                    <span>{posts.title}</span>
+                    <span>{(slug === slugPost ? title : false) ? title : posts.title}</span>
+
+                    <button className={articlList.favorite} onClick={() => toggleLike(openedPost.favorited)}>
+                      {' '}
+                      {(slug === openedPost.slug ? openedPost.favorited : false) ? '❤️' : '🤍'}
+                    </button>
                   </div>
                   <div>
-                    {posts.tagList.map((e) => {
+                    {posts.tagList.map((e, id) => {
                       if (e === '') return '';
-                      return <span className={articlList.articl__header_infoTags}>{e}</span>;
+                      return (
+                        <span className={articlList.articl__header_infoTags} key={id}>
+                          {e}
+                        </span>
+                      );
                     })}
                   </div>
                 </div>
@@ -43,15 +104,48 @@ const ArticlList = (props) => {
                     <span className={articlList.articl__header_userName}>
                       <span>{posts.author.username}</span>
                     </span>
-                    {/* <span className={articlList.articl__header_userData}>{typeof data === 'string' ? data : ''}</span> */}
+                    <span className={articlList.articl__header_userData}>{typeof data === 'string' ? data : ''}</span>
                   </div>
                   <div>
-                    <img className={articlList.articl__header_userImage} src={posts.author.image} alt="none" />
+                    <img
+                      className={articlList.articl__header_userImage}
+                      src={
+                        posts.author.image === undefined || null || posts.author.image.slice(0, 4) !== 'http'
+                          ? 'https://static.productionready.io/images/smiley-cyrus.jpg'
+                          : posts.author.image
+                      }
+                      alt="none"
+                    />
                   </div>
                 </div>
               </header>
               <main className={articlList.articl__main}>
                 <p className={articlList.articl__main_text}>{posts.body}</p>
+
+                {posts.author.username === username && (
+                  <div>
+                    <Popconfirm
+                      placement={'right'}
+                      description="Are you sure to delete this article?"
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={() => {
+                        deletePost(slug, token);
+
+                        message.success('Пост успешно удалён, обновите страницу');
+                        navigate('/');
+                      }}
+                      onCancel={() => message.error('Click on No')}
+                    >
+                      <NavLink to={`/articles/${slug}`} className={articlList.delete}>
+                        Delete
+                      </NavLink>
+                    </Popconfirm>
+                    <NavLink to={`/articles/${slug}/edit`} className={articlList.edit} end>
+                      Edit
+                    </NavLink>
+                  </div>
+                )}
               </main>
               <div className={articlList.description}>
                 <p>Est Ampyciden pater patent</p>
@@ -91,4 +185,4 @@ const ArticlList = (props) => {
   }
 };
 
-export { ArticlList };
+export default ArticlList;

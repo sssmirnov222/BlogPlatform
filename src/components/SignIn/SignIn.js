@@ -5,17 +5,19 @@ import { singIn } from '../../redux/actions/actionUsers';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
 const SingIp = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.isAutorize;
+  });
+
+  const error = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.errors;
   });
 
   const {
@@ -31,8 +33,13 @@ const SingIp = () => {
   password.current = watch('password', '');
 
   function onSubmit(data) {
-    console.log(data);
     dispatch(singIn(data));
+    if (isAutorize) {
+      message.success('Вы успешно вошли в систему');
+    }
+    if (error) {
+      message.error('Ошибка, такого пользователя несуществует!');
+    }
   }
 
   if (isAutorize) {
@@ -60,7 +67,7 @@ const SingIp = () => {
                 })}
               />
             </label>
-            {errors?.email?.message && <p>{errors?.email?.message || 'Error'}</p>}
+            {errors?.email?.message && <p className={style.userEmailErrors}>{errors?.email?.message || 'Error'}</p>}
 
             <label>
               <span>Password</span>
@@ -74,7 +81,9 @@ const SingIp = () => {
                 })}
               />
             </label>
-            {errors?.password?.message && <p>{errors?.password?.message || 'Error'}</p>}
+            {errors?.password?.message && (
+              <p className={style.userPasswordErrors}>{errors?.password?.message || 'Error'}</p>
+            )}
 
             <button type="submit" className={style.create}>
               Login

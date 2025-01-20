@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  justify-content: center;
+  .singUpEdit {
+    h3 {
+      padding-top: 20px;
+    }
+    background: white;
+    width: 360px;
+    margin-top: 20px;
+    border-radius: 12px;
+
+    .singUpEdit__input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .singUpEdit__form {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        .singUpEdit__inputUsername,
+        .singUpEdit__inputEmail,
+        .singUpEdit__inputPassword,
+        .singUpEdit__inputPassword_Repeat {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 10px;
+        }
+
+        .singUpEdit__inputUsername input,
+        .singUpEdit__inputEmail input,
+        .singUpEdit__inputPassword input,
+        .singUpEdit__inputPassword_Repeat input {
+          height: 35px;
+          border-radius: 4px;
+          width: 300px;
+          border: 1px solid grey;
+          padding-left: 5px;
+        }
+
+        .singUpEdit__inputUsername span,
+        .singUpEdit__inputEmail span,
+        .singUpEdit__inputPassword span,
+        .singUpEdit__inputPassword_Repeat span {
+          text-align: start;
+        }
+      }
+    }
+  }
+}
+
+.processing {
+  display: flex;
+  text-align: start;
+  margin-left: 25px;
+}
+.processing span {
+  font-size: 14px;
+  margin: 20px 10px;
+}
+.processing input {
+  height: 30px;
+  margin-top: 15px;
+}
+
+.edit {
+  color: white;
+  background: #1890ff;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  border: none;
+}
+
+.already,
+.singIn {
+  font-size: 12px;
+}
+
+.createAcc {
+  margin-bottom: 40px;
+}
+
+.userClassErrors,
+.userEmailErrors,
+.userPasswordErrors,
+.userRepeatPasswordErrors,
+.image {
+  font-size: 12px;
+  color: red;
+  margin: 0;
+  text-align: start;
+  margin-top: 2px;
+}

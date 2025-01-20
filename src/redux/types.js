@@ -1,4 +1,12 @@
 export const SING_UP_USER = 'SING_UP_USER';
 export const SING_IN_USER = 'SING_IN_USER';
 export const SING_LOGOUT_USER = 'SING_LOGOUT_USER';
+export const SING_ERR_USER = 'SING_ERR_USER';
+export const EDIT_USER = 'EDIT_USER';
 export const CREATE_ARTICL = 'CREATE_ARTICL';
+export const DELETE_ARTICL = 'DELETE_ARTICL';
+export const EDIT_ARTICL = 'EDIT_ARTICL';
+export const LIKE_ARTICL = 'LIKE_ARTICL';
+export const DISLIKE_ARTICL = 'DISLIKE_ARTICL';
+export const GET_ARTICLES = 'GET_ARTICLES';
+export const GET_ARTICL = 'GET_ARTICL';

@@ -3,18 +3,18 @@ import style from './SignUp.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { singUp } from '../../redux/actions/actionUsers';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
 
 const SingUp = () => {
   let navigate = useNavigate();
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users)
+    console.log(users);
     return users.isAutorize;
   });
 
-  
   const {
     register,
     handleSubmit,
@@ -24,27 +24,36 @@ const SingUp = () => {
     mode: 'onBlur',
   });
 
+  const error = useSelector((state) => {
+    const { users } = state.rootReducer;
+    console.log(users);
+    return users.errors;
+  });
+
   const password = useRef({});
   password.current = watch('password', '');
 
   function onSubmit(data) {
     console.log(data);
     dispatch(singUp(data));
+    if (error) {
+      message.error('Ошибка, такой пользователь уже есть!');
+    }
   }
-  
-  if (isAutorize) {
-   return navigate('/');
- }
 
- // Добавить отображение ошибок что бы глаза не ломались
+  if (isAutorize) {
+    return navigate('/');
+  }
+
+  // Добавить отображение ошибок что бы глаза не ломались
   return (
     <div className={style.container}>
       <div className={style.singUp}>
         <h3>Create new account</h3>
         <div className={style.singUp__input}>
-          <form className={style.singUp__inputUsername} onSubmit={handleSubmit(onSubmit)}>
-            <label>
-              {/* <span>Username</span> */}
+          <form className={style.singUp__form} onSubmit={handleSubmit(onSubmit)}>
+            <label className={style.singUp__inputUsername}>
+              <span>Username</span>
               <input
                 type="text"
                 placeholder="Username"
@@ -55,10 +64,12 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.username?.message && <p>{errors?.username?.message || 'Error'}</p>}
+            {errors?.username?.message && (
+              <p className={style.userClassErrors}>{errors?.username?.message || 'Error'}</p>
+            )}
 
-            <label>
-              {/* <span>Email address</span> */}
+            <label className={style.singUp__inputEmail}>
+              <span>Email address</span>
               <input
                 type="email"
                 placeholder="Email adress"
@@ -71,10 +82,10 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.email?.message && <p>{errors?.email?.message || 'Error'}</p>}
+            {errors?.email?.message && <p className={style.userEmailErrors}>{errors?.email?.message || 'Error'}</p>}
 
-            <label>
-              {/* <span>Password</span> */}
+            <label className={style.singUp__inputPassword}>
+              <span>Password</span>
               <input
                 type="password"
                 placeholder="Password"
@@ -85,10 +96,12 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.password?.message && <p>{errors?.password?.message || 'Error'}</p>}
+            {errors?.password?.message && (
+              <p className={style.userPasswordErrors}>{errors?.password?.message || 'Error'}</p>
+            )}
 
-            <label>
-              {/* <span>Repeat Password</span> */}
+            <label className={style.singUp__inputPassword_Repeat}>
+              <span>Repeat Password</span>
               <input
                 type="password"
                 placeholder="Password"
@@ -100,7 +113,9 @@ const SingUp = () => {
                 })}
               />
             </label>
-            {errors?.repeatPassword?.message && <p>{errors?.repeatPassword?.message || 'Error'}</p>}
+            {errors?.repeatPassword?.message && (
+              <p className={style.userRepeatPasswordErrors}>{errors?.repeatPassword?.message || 'Error'}</p>
+            )}
 
             <label className={style.processing}>
               <input
@@ -111,7 +126,7 @@ const SingUp = () => {
               />
               <span>I agree to the processing of my personal information</span>
             </label>
-            {errors?.checkbox?.message && <p>{errors?.checkbox?.message || 'Error'}</p>}
+            {errors?.checkbox?.message && <p className={style.checkbox}>{errors?.checkbox?.message || 'Error'}</p>}
 
             <button type="submit" className={style.create}>
               Create

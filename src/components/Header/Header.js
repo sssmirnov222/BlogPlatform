@@ -12,6 +12,18 @@ const Header = () => {
     return users.isAutorize;
   });
 
+  const username = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.username;
+  });
+
+  console.log(username);
+
+  const image = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.image;
+  });
+
   return (
     <>
       <header className={header.header}>
@@ -20,11 +32,23 @@ const Header = () => {
         </NavLink>
         {/* соотвтетственно если есть залогинен, то нужно выводить имя и аватар*/}
         {isAutorize && (
-          <div>
-            <NavLink to={'/new-article'} end>
+          <div className={header.header__users}>
+            <NavLink to={'/new-article'} className={header.header__createArticl} end>
               Create Article
             </NavLink>
-            <button type="button" onClick={() => dispatch(singOut)}>
+            <NavLink to={'/profile'} className={header.header__users_info}>
+              <span>{username}</span>
+              <img
+                className={header.header__users_infoImage}
+                src={
+                  image === undefined || null || image.slice(0, 4) !== 'http'
+                    ? 'https://static.productionready.io/images/smiley-cyrus.jpg'
+                    : image
+                }
+                alt="none"
+              />
+            </NavLink>
+            <button type="button" className={header.header__LogOut} onClick={() => dispatch(singOut)}>
               Log Out
             </button>
           </div>

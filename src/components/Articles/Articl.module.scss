@@ -49,6 +49,7 @@
 
         .articl__header_userData {
           color: grey;
+          text-align: left;
         }
       }
     }
@@ -65,4 +66,18 @@
   font-size: 12px;
   margin-left: 15px;
   text-align: start;
+}
+
+.favorite {
+  background: white;
+  border: none;
+  cursor: pointer;
+}
+.linkTitle {
+  color: #366eff;
+  text-decoration: none;
+}
+.link {
+  text-decoration: none;
+  color: black;
 }

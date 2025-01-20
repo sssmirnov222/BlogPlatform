@@ -9,38 +9,43 @@
     width: 360px;
     margin-top: 20px;
     border-radius: 12px;
+
     .singUp__input {
       display: flex;
       flex-direction: column;
       align-items: center;
-      .singUp__inputUsername,
-      .singUp__inputEmail,
-      .singUp__inputPassword,
-      .singUp__inputPassword_Repeat {
+
+      .singUp__form {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        margin-top: 10px;
-      }
+        align-items: center;
+        .singUp__inputUsername,
+        .singUp__inputEmail,
+        .singUp__inputPassword,
+        .singUp__inputPassword_Repeat {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 10px;
+        }
 
-      .singUp__inputUsername input,
-      .singUp__inputEmail input,
-      .singUp__inputPassword input,
-      .singUp__inputPassword_Repeat input {
-        height: 35px;
-        border-radius: 4px;
-        width: 300px;
-        border: 1px solid grey;
-      }
+        .singUp__inputUsername input,
+        .singUp__inputEmail input,
+        .singUp__inputPassword input,
+        .singUp__inputPassword_Repeat input {
+          height: 35px;
+          border-radius: 4px;
+          width: 300px;
+          border: 1px solid grey;
+          padding-left: 5px;
+        }
 
-      .singUp__inputUsername label,
-      .singUp__inputEmail label,
-      .singUp__inputPassword label,
-      .singUp__inputPassword_Repeat label {
-        text-align: left;
-        font-size: 14px;
-        padding-bottom: 5px;
-        font-weight: 400;
+        .singUp__inputUsername span,
+        .singUp__inputEmail span,
+        .singUp__inputPassword span,
+        .singUp__inputPassword_Repeat span {
+          text-align: start;
+        }
       }
     }
   }
@@ -48,18 +53,18 @@
 
 .processing {
   display: flex;
-  justify-content: center;
+  text-align: start;
+  margin-left: 25px;
 }
 .processing span {
   font-size: 14px;
-  margin: 20px 10px;
+  margin: 20px 1px;
+  width: 300px;
   text-align: left;
-  margin-left: 5px;
 }
 .processing input {
-  height: 40px;
-  margin-top: 10px;
-  margin-left: 30px;
+  height: 30px;
+  margin-top: 15px;
 }
 
 .create {
@@ -68,6 +73,8 @@
   width: 85%;
   padding: 10px;
   margin-bottom: 10px;
+  text-align: center;
+  border: none;
 }
 
 .already,
@@ -77,4 +84,16 @@
 
 .createAcc {
   margin-bottom: 40px;
+}
+
+.userClassErrors,
+.userEmailErrors,
+.userPasswordErrors,
+.userRepeatPasswordErrors,
+.checkbox {
+  font-size: 12px;
+  color: red;
+  margin: 0;
+  text-align: center;
+  margin-top: 2px;
 }

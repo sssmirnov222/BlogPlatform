@@ -5,49 +5,73 @@ import { Link } from 'react-router-dom';
 import { Pagination } from '@mui/material';
 import Articl from '../Articles/Articl';
 import { fetchgetPosts } from '../../services/services';
+import { Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArticles } from '../../redux/actions/actiosPosts';
 // import ArticlList from '../ArticlList/ArticlList';
 
 const ArticlItem = () => {
-  const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageQty, setPageQty] = useState(0);
+  const [pageQty, setPageQty] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchgetPosts(page).then((res) => {
-      // console.log(res);
-      setPosts(res.articles);
-      setPageQty(res.articles.length);
+      setPageQty(res.articlesCount);
+      dispatch(getArticles(res.articles));
+      setLoading(false);
     });
   }, [page]);
+
+  const posts = useSelector((state) => {
+    const { posts } = state.rootReducer;
+    return posts.post;
+  });
 
   return (
     <>
       <div>
         <div className={articlItem.attik}>
           {/* {console.log(posts)} */}
-          {posts.map((articl) => {
-            let tagList = articl.tagList.map((e) => e);
+          {loading ? (
+            <Spin className={articlItem.loader} />
+          ) : (
+            posts.map((articl, id) => {
+              let tagList = articl.tagList.map((e) => e);
+              console.log(articl);
 
-            return (
-              <div className={articlItem.articlList}  key={articl.title}>
-                <Link to={`/articles/${articl.slug}`} className={articlItem.link}>
+              return (
+                <div className={articlItem.articlList} key={id}>
                   <Articl
+                    key={id}
+                    slug={articl.slug}
                     body={articl.body}
                     title={articl.title}
                     name={articl.author.username}
                     image={articl.author.image}
-                    tagList={tagList}
+                    tagList={articl.tagList}
                     createdAt={articl.createdAt}
-       
+                    favorited={articl.favorited}
                   />
-                </Link>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })
+          )}
         </div>
 
         <div className={articlItem.pagination}>
-          {<Pagination count={pageQty} page={page} onChange={(_, num) => setPage(num)}></Pagination>}
+          {
+            <Pagination
+              count={pageQty}
+              page={page}
+              onChange={(_, num) => {
+                setPage(num);
+                // console.log(page);
+              }}
+            ></Pagination>
+          }
         </div>
       </div>
     </>

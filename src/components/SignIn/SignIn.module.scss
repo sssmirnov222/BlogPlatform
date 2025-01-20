@@ -6,7 +6,7 @@
       padding-top: 20px;
     }
     background: white;
-    width: 360px;
+    width: 370px;
     margin-top: 30px;
     border-radius: 12px;
     .singIp__input {
@@ -20,6 +20,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: baseline;
         margin-top: 15px;
       }
 
@@ -31,6 +32,7 @@
         border-radius: 4px;
         width: 300px;
         border: 1px solid grey;
+        padding-left: 5px;
       }
 
       .singIp__inputUsername label,
@@ -41,6 +43,8 @@
         font-size: 14px;
         padding-bottom: 5px;
         font-weight: 400;
+        margin-top: 10px;
+        margin-left: 30px;
       }
     }
   }
@@ -69,6 +73,8 @@
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 10px;
+  margin-left: 30px;
+  border: none;
 }
 
 .already,
@@ -78,4 +84,13 @@
 
 .createAcc {
   margin-bottom: 40px;
+}
+
+.userEmailErrors,
+.userPasswordErrors {
+  font-size: 12px;
+  color: red;
+  margin: 0;
+  text-align: center;
+  margin-top: 2px;
 }

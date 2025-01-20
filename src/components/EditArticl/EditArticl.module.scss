@@ -1,0 +1,97 @@
+.edit {
+  background: white;
+  margin-top: 35px;
+  width: 60%;
+  border-radius: 4px;
+  margin-left: 20%;
+
+  .editCreteArticl {
+    padding-top: 40px;
+  }
+}
+
+.editArticl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.editArticlTitle,
+.editArticlDescription,
+.editArticlBody,
+.editArticlTag {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin-top: 20px;
+  .formArticlTagInput {
+    display: flex;
+  }
+}
+
+.editArticlTitle:first-child {
+  margin-top: 0px;
+}
+
+.editArticlTitle input,
+.editArticlDescription input,
+.editArticlBody input,
+.editArticlTag input {
+  height: 35px;
+  font-size: 15px;
+  padding-left: 10px;
+  border: 1px solid #d9d9d9;
+}
+.editArticlBody input {
+  height: 130px;
+}
+
+.editArticlTitle span,
+.editArticlDescription span,
+.editArticlBody span,
+.editArticlTag span {
+  text-align: start;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+.deleteTag {
+  background: white;
+  border: 2px solid #f5222d;
+  margin-left: 15px;
+  width: 100px;
+  border-radius: 6px;
+  color: #f5222d;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addTag {
+  background: white;
+  border: 2px solid #1890ff;
+  margin-left: 15px;
+  width: 100px;
+  border-radius: 6px;
+  color: #1890ff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.send {
+  margin-top: 15px;
+  background: #1890ff;
+  color: white;
+  padding: 10px;
+  width: 250px;
+  border: none;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+.userTitleErrors {
+  font-size: 12px;
+  color: red;
+  margin: 0;
+  text-align: start;
+  margin-top: 2px;
+}
