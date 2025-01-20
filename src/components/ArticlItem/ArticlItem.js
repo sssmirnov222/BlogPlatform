@@ -1,14 +1,12 @@
 import React from 'react';
 import articlItem from './ArticlItem.module.scss';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Pagination } from '@mui/material';
 import Articl from '../Articles/Articl';
 import { fetchgetPosts } from '../../services/services';
 import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArticles } from '../../redux/actions/actiosPosts';
-// import ArticlList from '../ArticlList/ArticlList';
 
 const ArticlItem = () => {
   const [page, setPage] = useState(1);
@@ -34,13 +32,11 @@ const ArticlItem = () => {
     <>
       <div>
         <div className={articlItem.attik}>
-          {/* {console.log(posts)} */}
           {loading ? (
             <Spin className={articlItem.loader} />
           ) : (
             posts.map((articl, id) => {
-              let tagList = articl.tagList.map((e) => e);
-              console.log(articl);
+              articl.tagList.map((e) => e);
 
               return (
                 <div className={articlItem.articlList} key={id}>
@@ -68,7 +64,6 @@ const ArticlItem = () => {
               page={page}
               onChange={(_, num) => {
                 setPage(num);
-                // console.log(page);
               }}
             ></Pagination>
           }

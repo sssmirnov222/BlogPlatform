@@ -37,8 +37,6 @@ export const singOut = (dispatch) => {
 
 export const singIn = (value) => async (dispatch) => {
   const response = await singInUser(value);
-  console.log(response);
-
   try {
     if (response.errors) {
       return dispatch({
@@ -59,16 +57,16 @@ export const singIn = (value) => async (dispatch) => {
 
 export const editUser = (value, token) => async (dispatch) => {
   const response = await editProfile(value, token);
-  console.log(response);
   try {
     return dispatch({
-      response: response.user,
+      response: response.user ? response.user : '',
       type: EDIT_USER,
-      image: response.user.image,
+      image: response.user.image ? response.user.image : '',
       errors: response.errors,
       url: response.url,
     });
   } catch (error) {
+    alert('Ошибка при редактировании, такой Email занят');
     console.log('editUser', error);
   }
 };

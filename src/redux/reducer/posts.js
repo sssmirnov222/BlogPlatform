@@ -14,7 +14,6 @@ export const initialState = {
 };
 
 const posts = (state = initialState, { type, slug, url, title, body, description, payload, response }) => {
-  console.log(slug);
   switch (type) {
     case CREATE_ARTICL:
       return {

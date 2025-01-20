@@ -12,7 +12,6 @@ const EditProfile = () => {
 
   const token = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.token;
   });
 
@@ -30,13 +29,13 @@ const EditProfile = () => {
 
   const error = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.errors;
   });
 
+  console.log(error);
+
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
-    console.log(users);
     return users.isAutorize;
   });
 
@@ -51,14 +50,10 @@ const EditProfile = () => {
   });
 
   function onSubmit(data) {
-    console.log(data);
+    dispatch(editUser(data, token));
     if (isAutorize) {
-      dispatch(editUser(data, token));
+      navigate('/');
       message.success('Профиль успешно отредактирован!');
-    }
-    if (error) {
-      message.error('Ошибка');
-      navigate('/sign-in');
     }
   }
 
