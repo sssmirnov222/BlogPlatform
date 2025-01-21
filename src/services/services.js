@@ -192,6 +192,9 @@ export const editProfile = async (value, token) => {
 
     let res = await url.json();
     res.url = url.status;
+    if (res.url === 200) {
+      localStorage.setItem('user', JSON.stringify(res.user));
+    }
     return res;
   } catch (e) {
     if (e.response.status === 422) {

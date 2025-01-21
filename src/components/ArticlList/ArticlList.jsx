@@ -41,6 +41,8 @@ const ArticlList = (props) => {
 
   let postFind = openedPost.post.find((post) => post.slug === slug);
 
+  console.log(postFind);
+
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
     return users.isAutorize;
