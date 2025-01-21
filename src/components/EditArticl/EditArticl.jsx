@@ -94,3 +94,4 @@ const EditArticl = () => {
 };
 
 export default EditArticl;
+
