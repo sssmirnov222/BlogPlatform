@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import style from './EditArticl.module.scss';
 import { useForm } from 'react-hook-form';
 import { editArticl } from '../../redux/actions/actiosPosts';
@@ -35,9 +35,7 @@ const EditArticl = () => {
       dispatch(editArticl(data, slug, token));
       message.success('Пост успешно изменён');
       navigate('/');
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   if (!isAutorize) {
@@ -96,3 +94,4 @@ const EditArticl = () => {
 };
 
 export default EditArticl;
+

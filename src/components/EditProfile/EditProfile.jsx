@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import style from './EditProfile.module.scss';
 import { useForm } from 'react-hook-form';
 import { editUser } from '../../redux/actions/actionUsers';
 import { useDispatch, useSelector } from 'react-redux';
-import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
@@ -27,13 +26,6 @@ const EditProfile = () => {
   const password = useRef({});
   password.current = watch('password', '');
 
-  const error = useSelector((state) => {
-    const { users } = state.rootReducer;
-    return users.errors;
-  });
-
-  console.log(error);
-
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
     return users.isAutorize;
@@ -53,7 +45,6 @@ const EditProfile = () => {
     dispatch(editUser(data, token));
     if (isAutorize) {
       navigate('/');
-      message.success('Профиль успешно отредактирован!');
     }
   }
 
@@ -69,7 +60,16 @@ const EditProfile = () => {
           <form className={style.singUpEdit__form} onSubmit={handleSubmit(onSubmit)}>
             <label className={style.singUpEdit__inputUsername}>
               <span>Username</span>
-              <input type="text" defaultValue={username} placeholder="Username" {...register('username', {})} />
+              <input
+                type="text"
+                defaultValue={username}
+                placeholder="Username"
+                {...register('username', {
+                  required: 'Please enter your username',
+                  minLength: { value: 6, message: 'at least 6 characters' },
+                  maxLength: { value: 24, message: 'at least 24 characters' },
+                })}
+              />
             </label>
             {errors?.username?.message && (
               <p className={style.userClassErrors}>{errors?.username?.message || 'Error'}</p>
@@ -82,6 +82,7 @@ const EditProfile = () => {
                 type="email"
                 placeholder="Email adress"
                 {...register('email', {
+                  required: 'Please enter your email',
                   pattern: {
                     value: /\S+@\S+\.\S+/,
                     message: 'Please enter valid email',
@@ -93,13 +94,13 @@ const EditProfile = () => {
 
             <label className={style.singUpEdit__inputPassword}>
               <span>Biografia</span>
-              <input type="text" placeholder="Biografia" {...register('bio', {})} />
+              <input type="text" placeholder="Biografia" />
             </label>
             {errors?.bio?.message && <p className={style.userPasswordErrors}>{errors?.bio?.message || 'Error'}</p>}
 
             <label className={style.singUpEdit__inputPassword_Repeat}>
               <span>Image</span>
-              <input type="text" placeholder="image" {...register('image', {})} />
+              <input type="text" placeholder="image" />
             </label>
             {errors?.image?.message && <p className={style.image}>{errors?.image?.message || 'Error'}</p>}
 
@@ -114,3 +115,4 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+
