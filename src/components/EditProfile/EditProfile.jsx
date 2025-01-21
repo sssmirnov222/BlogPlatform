@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import style from './EditProfile.module.scss';
 import { useForm } from 'react-hook-form';
 import { editUser } from '../../redux/actions/actionUsers';
 import { useDispatch, useSelector } from 'react-redux';
-import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
@@ -40,11 +39,6 @@ const EditProfile = () => {
   const email = useSelector((state) => {
     const { users } = state.rootReducer;
     return users.email;
-  });
-
-  const url = useSelector((state) => {
-    const { users } = state.rootReducer;
-    return users.url;
   });
 
   function onSubmit(data) {
