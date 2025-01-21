@@ -58,9 +58,7 @@ const ArticlList = (props) => {
 
   try {
     data = format(posts.createdAt, 'dd MMMM yyyy');
-  } catch (e) {
-    console.log('Error time', e);
-  }
+  } catch (e) {}
 
   useEffect(() => {
     fetch(`https://blog-platform.kata.academy/api/articles/${slug}`)
@@ -81,7 +79,7 @@ const ArticlList = (props) => {
                   <div className={articlList.articl__header_infoTitle}>
                     <span>{(slug === slugPost ? title : false) ? title : posts.title}</span>
 
-                    <button className={articlList.favorite} onClick={() => toggleLike(openedPost.favorited)}>
+                    <button className={articlList.favorite} onClick={() => toggleLike(postFind.favorited)}>
                       {' '}
                       {(slug === postFind.slug ? postFind.favorited : false) ? '❤️' : '🤍'}
                     </button>
@@ -178,9 +176,7 @@ const ArticlList = (props) => {
         )}
       </div>
     );
-  } catch (e) {
-    console.log('Errooor', e);
-  }
+  } catch (e) {}
 };
 
 export default ArticlList;

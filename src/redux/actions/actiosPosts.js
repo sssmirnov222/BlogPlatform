@@ -19,9 +19,7 @@ export const createArticl = (data, token) => async (dispatch) => {
       body: response.article.body,
       url: response.url,
     });
-  } catch (error) {
-    console.log('Create Articl', error);
-  }
+  } catch (error) {}
 };
 
 export const getArticles = (payload) => async (dispatch) => {
@@ -47,9 +45,7 @@ export const deleteArticl = (slug, token) => async (dispatch) => {
       type: DELETE_ARTICL,
       url: response.url,
     });
-  } catch (error) {
-    console.log('Error delete articl', error);
-  }
+  } catch (error) {}
 };
 
 export const editArticl = (value, slug, token) => async (dispatch) => {
@@ -63,9 +59,7 @@ export const editArticl = (value, slug, token) => async (dispatch) => {
       description: response.article.slug === slug ? response.article.description : '',
       slug: response.article.slug,
     });
-  } catch (error) {
-    console.log('Error edit articl', error);
-  }
+  } catch (error) {}
 };
 
 export const likeArticl = (slug, token) => async (dispatch) => {
@@ -77,9 +71,7 @@ export const likeArticl = (slug, token) => async (dispatch) => {
       slug: slug,
       url: response.url,
     });
-  } catch (error) {
-    console.log('Error edit articl', error);
-  }
+  } catch (error) {}
 };
 
 export const disLikeArticl = (slug, token) => async (dispatch) => {
@@ -91,7 +83,5 @@ export const disLikeArticl = (slug, token) => async (dispatch) => {
       slug: slug,
       url: response.url,
     });
-  } catch (error) {
-    console.log('Error edit articl', error);
-  }
+  } catch (error) {}
 };

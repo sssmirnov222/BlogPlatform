@@ -36,23 +36,25 @@ const ArticlItem = () => {
             <Spin className={articlItem.loader} />
           ) : (
             posts.map((articl, id) => {
-              articl.tagList.map((e) => e);
-
-              return (
-                <div className={articlItem.articlList} key={id}>
-                  <Articl
-                    key={id}
-                    slug={articl.slug}
-                    body={articl.body}
-                    title={articl.title}
-                    name={articl.author.username}
-                    image={articl.author.image}
-                    tagList={articl.tagList}
-                    createdAt={articl.createdAt}
-                    favorited={articl.favorited}
-                  />
-                </div>
-              );
+              try {
+                return (
+                  <div className={articlItem.articlList} key={id}>
+                    <Articl
+                      key={id}
+                      slug={articl.slug}
+                      body={articl.body}
+                      title={articl.title}
+                      name={articl.author.username}
+                      image={articl.author.image}
+                      tagList={articl.tagList}
+                      createdAt={articl.createdAt}
+                      favorited={articl.favorited}
+                    />
+                  </div>
+                );
+              } catch (e) {
+                alert('Произошла ошибка, попробуйте перезагрузить страницу');
+              }
             })
           )}
         </div>

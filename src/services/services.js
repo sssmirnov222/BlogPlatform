@@ -7,7 +7,6 @@ export const fetchgetPosts = async (page) => {
     return res;
   } catch (error) {
     alert('Ошибка при открытии поста');
-    console.log(error);
   }
 };
 
@@ -18,12 +17,10 @@ export const fetchGetPostSlug = async (slug) => {
     return res;
   } catch (error) {
     alert('Ошибка при открытии поста');
-    console.log(error);
   }
 };
 
 export const createPost = async (value, token) => {
-  console.log(value, token);
   try {
     let user = {
       article: value,
@@ -41,7 +38,6 @@ export const createPost = async (value, token) => {
     return res;
   } catch (error) {
     alert('Ошибка при создании поста');
-    console.log(error);
   }
 };
 
@@ -63,12 +59,10 @@ export const editPost = async (value, slug, token) => {
     return res;
   } catch (error) {
     alert('Ошибка при редактировании поста');
-    console.log(error);
   }
 };
 
 export const deletePost = async (slug, token) => {
-  console.log(slug, token);
   try {
     let url = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}`, {
       method: 'DELETE',
@@ -77,13 +71,10 @@ export const deletePost = async (slug, token) => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     });
-    console.log(url.status);
     let res = await url.json();
     res.url = url.status;
     return res;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const likePost = async (slug, token) => {
@@ -101,7 +92,6 @@ export const likePost = async (slug, token) => {
     return res;
   } catch (e) {
     alert('Ошибка при постановке лайка');
-    console.log('My error', e);
   }
 };
 
@@ -119,7 +109,6 @@ export const dislikePost = async (slug, token) => {
     return res;
   } catch (e) {
     alert('Ошибка при постановке дизлайка');
-    console.log('My error', e);
   }
 };
 
@@ -146,7 +135,6 @@ export const singUpUser = async (value) => {
     return res;
   } catch (e) {
     alert('Ошибка, пользователь с таким email уже существует');
-    console.log('My error', e);
   }
 };
 
@@ -171,7 +159,6 @@ export const singInUser = async (value) => {
     return res;
   } catch (e) {
     alert('Ошибка, такого пользователя не существует');
-    console.log(e);
   }
 };
 
@@ -180,7 +167,6 @@ export const editProfile = async (value, token) => {
     let user = {
       user: value,
     };
-    console.log(user);
     let url = await fetch(`${baseUrl}/user`, {
       method: 'PUT',
       body: JSON.stringify(user),
@@ -192,11 +178,13 @@ export const editProfile = async (value, token) => {
 
     let res = await url.json();
     res.url = url.status;
+    if (res.url === 200) {
+      localStorage.setItem('user', JSON.stringify(res.user));
+    }
     return res;
   } catch (e) {
     if (e.response.status === 422) {
       alert('You are already subscribed to the plan');
     }
-    console.log(e);
   }
 };

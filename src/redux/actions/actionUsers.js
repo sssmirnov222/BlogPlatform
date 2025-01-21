@@ -22,9 +22,7 @@ export const singUp = (value) => async (dispatch) => {
     //если не response.user, то нужна логика для отображения ошибки
     // например в стор добавить ошибку, которая null, если ошибка писать туда текст и выводить этот текст под тем input, который не верный
     // это когда имя уже занято или email например
-  } catch (error) {
-    console.log('SingUp', error);
-  }
+  } catch (error) {}
 };
 
 //async используется для асинхронных вызовов, тут он не нужен, ты просто стор меняешь
@@ -48,11 +46,10 @@ export const singIn = (value) => async (dispatch) => {
       type: SING_IN_USER,
       errors: response.errors,
       username: response.user.username,
+      token: response.user.token,
       response: response.user,
     });
-  } catch (error) {
-    console.log('SingIn', error);
-  }
+  } catch (error) {}
 };
 
 export const editUser = (value, token) => async (dispatch) => {
@@ -67,6 +64,5 @@ export const editUser = (value, token) => async (dispatch) => {
     });
   } catch (error) {
     alert('Ошибка при редактировании, такой Email занят');
-    console.log('editUser', error);
   }
 };

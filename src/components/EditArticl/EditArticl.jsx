@@ -35,9 +35,7 @@ const EditArticl = () => {
       dispatch(editArticl(data, slug, token));
       message.success('Пост успешно изменён');
       navigate('/');
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   if (!isAutorize) {

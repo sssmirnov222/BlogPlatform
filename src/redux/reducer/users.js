@@ -34,7 +34,6 @@ const users = (state = initialState, { type, payload, token, username, image, er
       };
 
     case SING_LOGOUT_USER:
-      // console.log('тут');
       return {
         isAutorize: false,
       };

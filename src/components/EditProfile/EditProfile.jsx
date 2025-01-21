@@ -27,13 +27,6 @@ const EditProfile = () => {
   const password = useRef({});
   password.current = watch('password', '');
 
-  const error = useSelector((state) => {
-    const { users } = state.rootReducer;
-    return users.errors;
-  });
-
-  console.log(error);
-
   const isAutorize = useSelector((state) => {
     const { users } = state.rootReducer;
     return users.isAutorize;
@@ -49,11 +42,15 @@ const EditProfile = () => {
     return users.email;
   });
 
+  const url = useSelector((state) => {
+    const { users } = state.rootReducer;
+    return users.url;
+  });
+
   function onSubmit(data) {
     dispatch(editUser(data, token));
     if (isAutorize) {
       navigate('/');
-      message.success('Профиль успешно отредактирован!');
     }
   }
 
@@ -103,27 +100,13 @@ const EditProfile = () => {
 
             <label className={style.singUpEdit__inputPassword}>
               <span>Biografia</span>
-              <input
-                type="text"
-                placeholder="Biografia"
-                {...register('bio', {
-                  required: 'Please enter your password',
-                  minLength: { value: 6, message: 'at least 6 characters' },
-                  maxLength: { value: 40, message: 'at least 40 characters' },
-                })}
-              />
+              <input type="text" placeholder="Biografia" />
             </label>
             {errors?.bio?.message && <p className={style.userPasswordErrors}>{errors?.bio?.message || 'Error'}</p>}
 
             <label className={style.singUpEdit__inputPassword_Repeat}>
               <span>Image</span>
-              <input
-                type="text"
-                placeholder="image"
-                {...register('image', {
-                  required: 'Please file image',
-                })}
-              />
+              <input type="text" placeholder="image" />
             </label>
             {errors?.image?.message && <p className={style.image}>{errors?.image?.message || 'Error'}</p>}
 

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 const CreateArticl = () => {
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,16 +20,15 @@ const CreateArticl = () => {
   } = useForm({
     mode: 'onBlur',
   });
-  
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "tagList"
+    name: 'tagList',
   });
 
   const addTag = () => {
     append(tag);
-    setTag("");
+    setTag('');
   };
 
   const removeTag = (index) => () => {
@@ -51,7 +50,6 @@ const CreateArticl = () => {
   });
 
   function onSubmit(data) {
-    console.log(data)
     navigate('/');
     message.success('Пост успешно создан');
     dispatch(createArticl(data, token));
@@ -81,9 +79,9 @@ const CreateArticl = () => {
             <span>Short description</span>
             <input
               type="text"
-              placeholder="Title"
+              placeholder="Short description"
               {...register('description', {
-                required: 'Title enter',
+                required: 'Short description enter',
               })}
             />
           </label>
@@ -105,18 +103,16 @@ const CreateArticl = () => {
           <label className={style.formArticlTag}>
             <span>Tags</span>
             <div className={style.formArticlTagInput}>
-
-            {fields.map((item, index) => (
+              {fields.map((item, index) => (
                 <div key={item.id} className={style.Tag}>
                   <Fragment key={item.id}>
                     <Controller
-                      render={({ field }) => <p>{field.value}</p>}
+                      render={({ field }) => (
+                        <input className={style.tagsArr} placeholder="Tag" defaultValue={field.value} />
+                      )}
                       name={`tagList[${index}]`}
                       control={control}
                     />
-                    {/* <button type="button" className={style.addTag} onClick={addTag}>
-                      Add Tag
-                    </button> */}
                     <button type="button" className={style.deleteTag} onClick={removeTag(index)}>
                       Delete
                     </button>
