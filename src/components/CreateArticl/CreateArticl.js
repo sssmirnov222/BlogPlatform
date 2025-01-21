@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 const CreateArticl = () => {
-  const [tag, setTag] = useState('');
+  const [tag, setTag] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,23 +20,16 @@ const CreateArticl = () => {
   } = useForm({
     mode: 'onBlur',
   });
+  
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'tags',
+    name: "tagList"
   });
 
   const addTag = () => {
-    append(
-      <input
-        onChange={() => onChangeTag(tag)}
-        placeholder="Tag"
-        {...register('tagList', {
-          required: 'Tag enter',
-        })}
-      />
-    );
-    setTag('');
+    append(tag);
+    setTag("");
   };
 
   const removeTag = (index) => () => {
@@ -57,6 +51,7 @@ const CreateArticl = () => {
   });
 
   function onSubmit(data) {
+    console.log(data)
     navigate('/');
     message.success('Пост успешно создан');
     dispatch(createArticl(data, token));
@@ -110,30 +105,18 @@ const CreateArticl = () => {
           <label className={style.formArticlTag}>
             <span>Tags</span>
             <div className={style.formArticlTagInput}>
-              <div className={style.startTag}>
-                <input
-                  onChange={() => onChangeTag(tag)}
-                  placeholder="Tag"
-                  {...register('tagList', {
-                    required: 'Tag enter',
-                  })}
-                />
-                <button type="button" className={style.addTag} onClick={addTag}>
-                  Add Tag
-                </button>
-              </div>
 
-              {fields.map((item, index) => (
+            {fields.map((item, index) => (
                 <div key={item.id} className={style.Tag}>
                   <Fragment key={item.id}>
                     <Controller
                       render={({ field }) => <p>{field.value}</p>}
-                      name={`tags[${index}]`}
+                      name={`tagList[${index}]`}
                       control={control}
                     />
-                    <button type="button" className={style.addTag} onClick={addTag}>
+                    {/* <button type="button" className={style.addTag} onClick={addTag}>
                       Add Tag
-                    </button>
+                    </button> */}
                     <button type="button" className={style.deleteTag} onClick={removeTag(index)}>
                       Delete
                     </button>
@@ -142,6 +125,25 @@ const CreateArticl = () => {
                   </Fragment>
                 </div>
               ))}
+
+              <div className={style.startTag}>
+                <input
+                  onChange={onChangeTag}
+                  placeholder="Tag"
+                  value={tag}
+                  // {...register('tagList', {
+                  //   required: 'Tag enter',
+                  // })}
+                />
+                <button type="button" className={style.addTag} onClick={addTag}>
+                  Add Tag
+                </button>
+
+                {/* <input placeholder="Enter tag..." value={tag} onChange={onChangeTag} />
+      <button type="button" onClick={addTag}>
+        Add Tag
+      </button> */}
+              </div>
             </div>
           </label>
           {errors?.tags?.message && <p>{errors?.tags?.message || 'Error'}</p>}
